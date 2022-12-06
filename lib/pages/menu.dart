@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mtoybox/modules/interface/routes.dart';
 
 class Menu extends StatelessWidget {
   const Menu({super.key});
@@ -12,10 +13,18 @@ class Menu extends StatelessWidget {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            Text(
-              'これはテスト',
-            ),
+          children: <Widget>[
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(
+                      context, Routes.imageLibraryArticleList.key);
+                },
+                child: const Text('ずかん')),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, Routes.selectOne.key);
+                },
+                child: const Text('えらんであそぼう')),
           ],
         ),
       ),
