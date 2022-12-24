@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:mtoybox/components/article_image.dart';
-import 'package:mtoybox/components/category_item.dart';
+import 'package:mtoybox/components/atoms/camera_button.dart';
 import 'package:mtoybox/components/category_selector.dart';
 import 'package:mtoybox/modules/domain/model/article/photo.dart';
 import 'package:mtoybox/modules/domain/model/category/catetory.dart';
@@ -41,9 +40,11 @@ class _CreateArticleState extends State<CreateArticle> {
       }),
       Row(
         children: [
-          IconButton(
-              onPressed: () => {takePhotFromCamera()},
-              icon: const Icon(Icons.camera_alt)),
+          CameraButton((Photo photo) {
+            setState(() {
+              this.selectedPhoto = photo;
+            });
+          }),
           IconButton(
             onPressed: () => {},
             icon: const Icon(Icons.photo),
@@ -62,15 +63,5 @@ class _CreateArticleState extends State<CreateArticle> {
       ),
       body: Column(children: widgets),
     );
-  }
-
-  takePhotFromCamera() async {
-    final picker = ImagePicker();
-    final img = await picker.pickImage(source: ImageSource.camera);
-    if (img == null) return;
-
-    setState(() {
-      selectedPhoto = Photo(img.path, isBuiltin: false);
-    });
   }
 }
