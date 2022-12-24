@@ -3,6 +3,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mtoybox/components/article.dart';
 import 'package:mtoybox/modules/domain/model/article/item.dart';
 import 'package:mtoybox/modules/domain/model/article/photo.dart';
+import 'package:mtoybox/modules/interface/routes.dart';
 
 class ArticleList extends StatefulWidget {
   const ArticleList({super.key});
@@ -43,6 +44,8 @@ class _ArticleListState extends State<ArticleList> {
   }
 
   addArticle() async {
+    Navigator.pushNamed(context, Routes.createArticle.key);
+    /*
     final picker = ImagePicker();
     final img = await picker.pickImage(source: ImageSource.camera);
     if (img == null) return;
@@ -51,5 +54,6 @@ class _ArticleListState extends State<ArticleList> {
       _articles.add(Article(
           Item(Photo(img.path, isBuiltin: false), 'テスト', Colors.yellow)));
     });
+    */
   }
 }

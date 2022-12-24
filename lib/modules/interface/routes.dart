@@ -1,7 +1,9 @@
 enum Routes {
   menu(key: '/'),
   selectOne(key: '/selectOne'),
-  imageLibraryArticleList(key: '/imageLibrary/articleList');
+
+  imageLibraryArticleList(key: '/imageLibrary/articleList'),
+  createArticle(key: '/imageLibrary/createArticle');
 
   const Routes({required this.key});
 
