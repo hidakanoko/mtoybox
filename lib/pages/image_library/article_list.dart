@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:mtoybox/components/article.dart';
 import 'package:mtoybox/modules/domain/model/article/item.dart';
 import 'package:mtoybox/modules/domain/model/article/photo.dart';
+import 'package:mtoybox/modules/domain/model/category/catetory.dart';
 import 'package:mtoybox/modules/interface/routes.dart';
 
 class ArticleList extends StatefulWidget {
@@ -15,13 +15,13 @@ class ArticleList extends StatefulWidget {
 class _ArticleListState extends State<ArticleList> {
   final List<Article> _articles = [
     Article(Item(Photo('assets/images/fruits/apple1.png', isBuiltin: true),
-        'りんご1', Colors.blue)),
+        'りんご1', Category('くだもの', Colors.blue))),
     Article(Item(Photo('assets/images/fruits/apple2.png', isBuiltin: true),
-        'りんご2', Colors.green)),
+        'りんご2', Category('くだもの', Colors.green))),
     Article(Item(Photo('assets/images/fruits/mikan1.png', isBuiltin: true),
-        'みかん', Colors.red)),
+        'みかん', Category('くだもの', Colors.red))),
     Article(Item(Photo('assets/images/fruits/watermelon1.png', isBuiltin: true),
-        'めろん', Colors.purple)),
+        'めろん', Category('くだもの', Colors.purple))),
   ];
 
   @override
@@ -44,16 +44,13 @@ class _ArticleListState extends State<ArticleList> {
   }
 
   addArticle() async {
-    Navigator.pushNamed(context, Routes.createArticle.key);
-    /*
-    final picker = ImagePicker();
-    final img = await picker.pickImage(source: ImageSource.camera);
-    if (img == null) return;
-
+    dynamic result =
+        await Navigator.pushNamed(context, Routes.createArticle.key);
+    if (result == null || result is! Article) {
+      return;
+    }
     setState(() {
-      _articles.add(Article(
-          Item(Photo(img.path, isBuiltin: false), 'テスト', Colors.yellow)));
+      _articles.add(result);
     });
-    */
   }
 }

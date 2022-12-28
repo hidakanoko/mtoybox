@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mtoybox/components/article.dart';
 import 'package:mtoybox/modules/domain/model/article/item.dart';
 import 'package:mtoybox/modules/domain/model/article/photo.dart';
+import 'package:mtoybox/modules/domain/model/category/catetory.dart';
 
 class SelectOne extends StatefulWidget {
   const SelectOne({super.key});
@@ -23,12 +24,12 @@ class _SelectOneState extends State<SelectOne> {
               child: Article(Item(
                   Photo('assets/images/fruits/apple1.png', isBuiltin: true),
                   'りんご1',
-                  Colors.red))),
+                  Category('くだもの', Colors.purple)))),
           Expanded(
               child: Article(Item(
                   Photo('assets/images/fruits/apple2.png', isBuiltin: true),
                   'りんご2',
-                  Colors.yellow))),
+                  Category('くだもの', Colors.purple)))),
         ],
       ),
     );

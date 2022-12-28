@@ -6,8 +6,9 @@ class Category {
 
   Category(this.name, this.color);
 
+  /// カテゴリーは名前で一意とする
   @override
-  int get hashCode => Object.hash(name, color);
+  int get hashCode => name.hashCode;
 
   @override
   bool operator ==(Object other) {

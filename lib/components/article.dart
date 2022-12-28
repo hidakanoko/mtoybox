@@ -11,7 +11,7 @@ class Article extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
-          color: item.themeColor,
+          color: item.category.color,
           borderRadius: BorderRadius.circular(20.0),
         ),
         margin: const EdgeInsets.all(10),

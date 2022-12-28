@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mtoybox/components/article.dart';
 import 'package:mtoybox/components/article_image.dart';
 import 'package:mtoybox/components/atoms/camera_button.dart';
 import 'package:mtoybox/components/category_selector.dart';
+import 'package:mtoybox/modules/domain/model/article/item.dart';
 import 'package:mtoybox/modules/domain/model/article/photo.dart';
 import 'package:mtoybox/modules/domain/model/category/catetory.dart';
 
@@ -13,7 +15,7 @@ class CreateArticle extends StatefulWidget {
 }
 
 class _CreateArticleState extends State<CreateArticle> {
-  String _name = "";
+  String? providedName;
   Photo? selectedPhoto;
   Category selectedCategory = Category('やさい', Colors.green);
 
@@ -29,7 +31,7 @@ class _CreateArticleState extends State<CreateArticle> {
             icon: Icon(Icons.app_registration_sharp), labelText: 'なまえ'),
         onChanged: (String value) {
           setState(() {
-            _name = value;
+            providedName = value;
           });
         },
       ),
@@ -45,10 +47,7 @@ class _CreateArticleState extends State<CreateArticle> {
               this.selectedPhoto = photo;
             });
           }),
-          IconButton(
-            onPressed: () => {},
-            icon: const Icon(Icons.photo),
-          )
+          // TODO: gallery
         ],
       )
     ];
@@ -57,11 +56,32 @@ class _CreateArticleState extends State<CreateArticle> {
       widgets.add(
           AspectRatio(aspectRatio: 1.0, child: ArticleImage(selectedPhoto)));
     }
+
+    widgets.add(ElevatedButton(
+        onPressed: isFilled() ? close : null, child: const Text('登録')));
     return Scaffold(
       appBar: AppBar(
         title: const Text('ずかんのあたらしいこうもく'),
       ),
       body: Column(children: widgets),
     );
+  }
+
+  bool isFilled() {
+    return providedName != null && selectedPhoto != null;
+  }
+
+  void close() {
+    // この時点でnullになることはあり得ない, 型調整のための記述
+    Photo? photo = selectedPhoto;
+    if (photo == null) {
+      return;
+    }
+    String? name = providedName;
+    if (name == null) {
+      return;
+    }
+
+    Navigator.pop(context, Article(Item(photo, name, selectedCategory)));
   }
 }
