@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mtoybox/modules/domain/model/category/category_gateway.dart';
+import 'package:mtoybox/modules/domain/gateway/category_gateway.dart';
 import 'package:mtoybox/modules/domain/model/category/catetory.dart';
 
 class CategoryRepository implements CategoryGateway {
