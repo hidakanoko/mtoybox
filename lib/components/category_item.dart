@@ -16,7 +16,7 @@ class CategoryItem extends StatelessWidget {
           margin: const EdgeInsets.all(10),
         ),
         Text(
-          _category.name,
+          _category.name.value,
           style: const TextStyle(fontSize: 20),
         ),
       ],

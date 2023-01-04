@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mtoybox/modules/domain/model/category/category_name.dart';
 
 class Category {
-  final String name;
+  final CategoryName name;
   final Color color;
 
   Category(this.name, this.color);

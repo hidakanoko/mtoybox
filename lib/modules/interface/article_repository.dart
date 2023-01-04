@@ -1,10 +1,9 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:mtoybox/modules/domain/gateway/article_gateway.dart';
 import 'package:mtoybox/modules/domain/model/article/item.dart';
 import 'package:mtoybox/modules/domain/model/article/photo.dart';
-import 'package:mtoybox/modules/domain/model/category/catetory.dart';
+import 'package:mtoybox/modules/domain/model/category/category_name.dart';
 import 'package:mtoybox/modules/infrastructure/file_system.dart';
 import 'package:mtoybox/modules/interface/converter/article_item_map_converter.dart';
 
@@ -18,13 +17,13 @@ class ArticleRepository implements ArticleGateway {
   final articleFile = 'article.json';
   final initialArticles = [
     Item(Photo('assets/images/fruits/apple1.png', isBuiltin: true), 'りんご1',
-        Category('くだもの', Colors.blue)),
+        CategoryName('くだもの')),
     Item(Photo('assets/images/fruits/apple2.png', isBuiltin: true), 'りんご2',
-        Category('くだもの', Colors.green)),
+        CategoryName('くだもの')),
     Item(Photo('assets/images/fruits/mikan1.png', isBuiltin: true), 'みかん',
-        Category('くだもの', Colors.red)),
+        CategoryName('くだもの')),
     Item(Photo('assets/images/fruits/watermelon1.png', isBuiltin: true), 'めろん',
-        Category('くだもの', Colors.purple)),
+        CategoryName('くだもの')),
   ];
 
   ArticleRepository({required this.fs, required this.converter});
