@@ -3,5 +3,4 @@ import 'package:mtoybox/modules/domain/model/category/catetory.dart';
 
 abstract class CategoryGateway {
   Future<List<Category>> getAll();
-  Future<Category> findByName(CategoryName categoryName);
 }

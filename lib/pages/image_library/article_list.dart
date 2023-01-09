@@ -30,8 +30,7 @@ class _ArticleListState extends State<ArticleList> {
   Future<List<Article>> getArticles() async {
     await articleGateway.initializeIfNotExists();
     var list = await articleGateway.getAll();
-    print(list);
-    return _articles;
+    return list.map((item) => Article(item)).toList();
   }
 
   @override

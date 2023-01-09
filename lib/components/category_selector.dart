@@ -19,9 +19,7 @@ class _CategorySelectorState extends State<CategorySelector> {
   late final List<Category> items;
   Category? selected;
 
-  _CategorySelectorState() : repository = CategoryRepository() {
-    items = repository.getAll();
-  }
+  _CategorySelectorState() : repository = CategoryRepository.instance();
 
   @override
   Widget build(BuildContext context) {

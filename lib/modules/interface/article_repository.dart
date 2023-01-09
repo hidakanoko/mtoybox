@@ -38,9 +38,16 @@ class ArticleRepository implements ArticleGateway {
   }
 
   @override
-  Future<List<Item>> getAll() {
-    fs.readInDocumentPath(articleFile);
-    throw UnimplementedError('error');
+  Future<List<Item>> getAll() async {
+    if (!await exists()) {
+      return [];
+    }
+    dynamic contents = json.decode(await fs.readInDocumentPath(articleFile));
+    if (contents is List && contents.any((e) => e! is Map<String, dynamic>)) {
+      return contents.map((e) => converter.fromMap(e)).toList();
+    } else {
+      throw Exception('failed to read items from file');
+    }
   }
 
   @override
