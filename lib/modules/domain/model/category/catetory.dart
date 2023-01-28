@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:mtoybox/modules/domain/model/category/category_name.dart';
+import 'package:mtoybox/modules/domain/model/category/category_id.dart';
 
 class Category {
-  final CategoryName name;
+  final CategoryId id;
+  final String name;
   final Color color;
 
-  Category(this.name, this.color);
+  Category(this.id, this.name, this.color);
 
-  /// カテゴリーは名前で一意とする
   @override
-  int get hashCode => name.hashCode;
+  int get hashCode => id.toString().hashCode;
 
   @override
   bool operator ==(Object other) {

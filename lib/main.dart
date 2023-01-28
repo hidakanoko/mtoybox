@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:mtoybox/modules/interface/article_repository.dart';
+import 'package:mtoybox/modules/interface/category_repository.dart';
 import 'package:mtoybox/modules/interface/routes.dart';
 import 'package:mtoybox/pages/image_library/article_list.dart';
 import 'package:mtoybox/pages/image_library/create_article.dart';
 import 'package:mtoybox/pages/menu.dart';
 import 'package:mtoybox/pages/select_one.dart';
 
-void main() {
+void main() async {
   runApp(const Main());
 }
 
@@ -14,6 +16,10 @@ class Main extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CategoryRepository.instance()
+        .initialize()
+        .whenComplete(() => ArticleRepository.instance().initialize());
+
     return MaterialApp(
       title: 'まどかのおもちゃ箱',
       theme: ThemeData(

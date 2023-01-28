@@ -4,8 +4,8 @@ import 'package:mtoybox/components/article_image.dart';
 import 'package:mtoybox/components/atoms/camera_button.dart';
 import 'package:mtoybox/components/category_selector.dart';
 import 'package:mtoybox/modules/domain/model/article/item.dart';
+import 'package:mtoybox/modules/domain/model/article/item_id.dart';
 import 'package:mtoybox/modules/domain/model/article/photo.dart';
-import 'package:mtoybox/modules/domain/model/category/category_name.dart';
 import 'package:mtoybox/modules/domain/model/category/catetory.dart';
 
 class CreateArticle extends StatefulWidget {
@@ -18,7 +18,7 @@ class CreateArticle extends StatefulWidget {
 class _CreateArticleState extends State<CreateArticle> {
   String? providedName;
   Photo? selectedPhoto;
-  Category selectedCategory = Category(CategoryName('やさい'), Colors.green);
+  Category? selectedCategory;
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +83,7 @@ class _CreateArticleState extends State<CreateArticle> {
       return;
     }
 
-    Navigator.pop(context, Article(Item(photo, name, selectedCategory.name)));
+    Navigator.pop(context,
+        Article(Item(ItemId.generate(), photo, name, selectedCategory!.id)));
   }
 }
