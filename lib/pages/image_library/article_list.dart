@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mtoybox/components/article.dart';
 import 'package:mtoybox/modules/domain/gateway/article_gateway.dart';
+import 'package:mtoybox/modules/domain/model/article/item.dart';
 import 'package:mtoybox/modules/interface/article_repository.dart';
 import 'package:mtoybox/modules/interface/routes.dart';
 
@@ -48,11 +49,8 @@ class _ArticleListState extends State<ArticleList> {
   addArticle() async {
     dynamic result =
         await Navigator.pushNamed(context, Routes.createArticle.key);
-    if (result == null || result is! Article) {
+    if (result == null || result is! Item) {
       return;
     }
-    // setState(() {
-    //   _articles.add(result);
-    // });
   }
 }

@@ -9,8 +9,6 @@ class CategorySelector extends StatefulWidget {
   final void Function(Category)? onChanged;
   const CategorySelector(this.initial, {super.key, this.onChanged});
 
-  void getStates() {}
-
   @override
   State<CategorySelector> createState() => _CategorySelectorState();
 }
@@ -34,7 +32,7 @@ class _CategorySelectorState extends State<CategorySelector> {
           return const CircularProgressIndicator.adaptive();
         }
         return DropdownButton<Category>(
-            value: selected ?? widget.initial ?? snapshot.data?.asList().first,
+            value: selected ?? widget.initial,
             items: snapshot.data
                 ?.asList()
                 .map<DropdownMenuItem<Category>>((Category category) {

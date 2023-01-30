@@ -3,10 +3,12 @@ import 'package:mtoybox/components/article.dart';
 import 'package:mtoybox/components/article_image.dart';
 import 'package:mtoybox/components/atoms/camera_button.dart';
 import 'package:mtoybox/components/category_selector.dart';
+import 'package:mtoybox/modules/domain/gateway/article_gateway.dart';
 import 'package:mtoybox/modules/domain/model/article/item.dart';
 import 'package:mtoybox/modules/domain/model/article/item_id.dart';
 import 'package:mtoybox/modules/domain/model/article/photo.dart';
 import 'package:mtoybox/modules/domain/model/category/catetory.dart';
+import 'package:mtoybox/modules/interface/article_repository.dart';
 
 class CreateArticle extends StatefulWidget {
   const CreateArticle({super.key});
@@ -16,6 +18,7 @@ class CreateArticle extends StatefulWidget {
 }
 
 class _CreateArticleState extends State<CreateArticle> {
+  final ArticleGateway _articleGateway = ArticleRepository.instance();
   String? providedName;
   Photo? selectedPhoto;
   Category? selectedCategory;
@@ -83,7 +86,10 @@ class _CreateArticleState extends State<CreateArticle> {
       return;
     }
 
-    Navigator.pop(context,
-        Article(Item(ItemId.generate(), photo, name, selectedCategory!.id)));
+    var newItem = Item(ItemId.generate(), photo, name, selectedCategory!.id);
+
+    _articleGateway.save(newItem);
+
+    Navigator.pop(context, newItem);
   }
 }
