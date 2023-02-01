@@ -52,5 +52,6 @@ class _ArticleListState extends State<ArticleList> {
     if (result == null || result is! Item) {
       return;
     }
+    setState(() {});
   }
 }
