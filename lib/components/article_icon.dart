@@ -5,11 +5,11 @@ import 'package:mtoybox/modules/domain/model/article/item.dart';
 import 'package:mtoybox/modules/domain/model/category/catetory.dart';
 import 'package:mtoybox/modules/interface/category_repository.dart';
 
-class Article extends StatelessWidget {
+class ArticleIcon extends StatelessWidget {
   final Item item;
   final CategoryGateway categoryGateway = CategoryRepository.instance();
 
-  Article(this.item, {Key? key}) : super(key: key);
+  ArticleIcon(this.item, {Key? key}) : super(key: key);
 
   Future<Category?> findCategory() async {
     var categoryId = item.categoryId;

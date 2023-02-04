@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mtoybox/components/article.dart';
+import 'package:mtoybox/components/article_icon.dart';
 import 'package:mtoybox/modules/domain/gateway/article_gateway.dart';
 import 'package:mtoybox/modules/domain/model/article/item.dart';
 import 'package:mtoybox/modules/interface/article_repository.dart';
@@ -14,9 +14,9 @@ class ArticleList extends StatefulWidget {
 
 class _ArticleListState extends State<ArticleList> {
   final ArticleGateway articleGateway = ArticleRepository.instance();
-  Future<List<Article>> getArticles() async {
+  Future<List<ArticleIcon>> getArticles() async {
     var list = await articleGateway.getAll();
-    return list.map((item) => Article(item)).toList();
+    return list.map((item) => ArticleIcon(item)).toList();
   }
 
   @override
