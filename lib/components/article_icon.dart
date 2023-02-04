@@ -8,8 +8,11 @@ import 'package:mtoybox/modules/interface/category_repository.dart';
 class ArticleIcon extends StatelessWidget {
   final Item item;
   final CategoryGateway categoryGateway = CategoryRepository.instance();
+  final void Function()? _onTap;
 
-  ArticleIcon(this.item, {Key? key}) : super(key: key);
+  ArticleIcon(this.item, {Key? key, void Function()? onTap})
+      : _onTap = onTap,
+        super(key: key);
 
   Future<Category?> findCategory() async {
     var categoryId = item.categoryId;
@@ -25,7 +28,7 @@ class ArticleIcon extends StatelessWidget {
     return FutureBuilder(
         future: findCategory(),
         builder: (context, snapshot) {
-          return Container(
+          return _wrapByGestureDetectorIfNecessary(Container(
               decoration: BoxDecoration(
                 color: snapshot.hasData ? snapshot.data?.color : null,
                 borderRadius: BorderRadius.circular(20.0),
@@ -44,7 +47,18 @@ class ArticleIcon extends StatelessWidget {
                     ),
                   )
                 ],
-              ));
+              )));
         });
+  }
+
+  Widget _wrapByGestureDetectorIfNecessary(Container container) {
+    if (_onTap == null) {
+      return container;
+    } else {
+      return GestureDetector(
+        onTap: _onTap,
+        child: container,
+      );
+    }
   }
 }

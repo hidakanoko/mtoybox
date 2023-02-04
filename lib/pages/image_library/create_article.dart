@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mtoybox/components/article_icon.dart';
 import 'package:mtoybox/components/article_image.dart';
 import 'package:mtoybox/components/atoms/camera_button.dart';
 import 'package:mtoybox/components/category_selector.dart';

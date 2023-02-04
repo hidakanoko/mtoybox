@@ -14,15 +14,22 @@ class ArticleList extends StatefulWidget {
 
 class _ArticleListState extends State<ArticleList> {
   final ArticleGateway articleGateway = ArticleRepository.instance();
-  Future<List<ArticleIcon>> getArticles() async {
+
+  Future<List<ArticleIcon>> _getArticleIcons() async {
     var list = await articleGateway.getAll();
-    return list.map((item) => ArticleIcon(item)).toList();
+    return list
+        .map((item) => ArticleIcon(item, onTap: () => _onArticleIconTap(item)))
+        .toList();
+  }
+
+  void _onArticleIconTap(item) {
+    print(item);
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: getArticles(),
+        future: _getArticleIcons(),
         builder: ((context, snapshot) {
           Widget body;
           if (snapshot.hasData && snapshot.data != null) {
