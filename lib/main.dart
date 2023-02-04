@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mtoybox/modules/interface/article_repository.dart';
 import 'package:mtoybox/modules/interface/category_repository.dart';
 import 'package:mtoybox/modules/interface/routes.dart';
+import 'package:mtoybox/pages/image_library/article_edit.dart';
 import 'package:mtoybox/pages/image_library/article_list.dart';
 import 'package:mtoybox/pages/image_library/create_article.dart';
 import 'package:mtoybox/pages/menu.dart';
@@ -30,6 +31,7 @@ class Main extends StatelessWidget {
         Routes.selectOne.key: (context) => const SelectOne(),
         Routes.imageLibraryArticleList.key: ((context) => const ArticleList()),
         Routes.createArticle.key: ((context) => const CreateArticle()),
+        Routes.articleEdit.key: (context) => const ArticleEdit(),
       },
     );
   }

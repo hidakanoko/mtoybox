@@ -22,8 +22,8 @@ class _ArticleListState extends State<ArticleList> {
         .toList();
   }
 
-  void _onArticleIconTap(item) {
-    print(item);
+  Future<void> _onArticleIconTap(item) async {
+    await Navigator.pushNamed(context, Routes.articleEdit.key);
   }
 
   @override
