@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mtoybox/modules/interface/routes.dart';
+import 'package:mtoybox/pages/image_library/article_list.dart';
+import 'package:mtoybox/pages/select_one.dart';
 
 class Menu extends StatelessWidget {
   const Menu({super.key});
@@ -16,13 +17,14 @@ class Menu extends StatelessWidget {
           children: <Widget>[
             ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(
-                      context, Routes.imageLibraryArticleList.key);
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const ArticleList()));
                 },
                 child: const Text('ずかん')),
             ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, Routes.selectOne.key);
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const SelectOne()));
                 },
                 child: const Text('えらんであそぼう')),
           ],

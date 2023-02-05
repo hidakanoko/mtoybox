@@ -12,6 +12,10 @@ class ArticleEdit extends StatefulWidget {
 class _ArticleEditState extends State<ArticleEdit> {
   @override
   Widget build(BuildContext context) {
-    return const Text('test');
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('test'),
+      ),
+    );
   }
 }

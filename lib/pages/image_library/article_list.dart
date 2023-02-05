@@ -4,6 +4,8 @@ import 'package:mtoybox/modules/domain/gateway/article_gateway.dart';
 import 'package:mtoybox/modules/domain/model/article/item.dart';
 import 'package:mtoybox/modules/interface/article_repository.dart';
 import 'package:mtoybox/modules/interface/routes.dart';
+import 'package:mtoybox/pages/image_library/article_edit.dart';
+import 'package:mtoybox/pages/image_library/create_article.dart';
 
 class ArticleList extends StatefulWidget {
   const ArticleList({super.key});
@@ -23,7 +25,8 @@ class _ArticleListState extends State<ArticleList> {
   }
 
   Future<void> _onArticleIconTap(item) async {
-    await Navigator.pushNamed(context, Routes.articleEdit.key);
+    await Navigator.of(context)
+        .push(MaterialPageRoute(builder: ((context) => const ArticleEdit())));
   }
 
   @override
@@ -54,8 +57,8 @@ class _ArticleListState extends State<ArticleList> {
   }
 
   addArticle() async {
-    dynamic result =
-        await Navigator.pushNamed(context, Routes.createArticle.key);
+    dynamic result = await Navigator.of(context)
+        .push(MaterialPageRoute(builder: ((context) => const CreateArticle())));
     if (result == null || result is! Item) {
       return;
     }
