@@ -3,7 +3,6 @@ import 'package:mtoybox/components/article_icon.dart';
 import 'package:mtoybox/modules/domain/gateway/article_gateway.dart';
 import 'package:mtoybox/modules/domain/model/article/item.dart';
 import 'package:mtoybox/modules/interface/article_repository.dart';
-import 'package:mtoybox/modules/interface/routes.dart';
 import 'package:mtoybox/pages/image_library/article_edit.dart';
 import 'package:mtoybox/pages/image_library/create_article.dart';
 
@@ -24,9 +23,9 @@ class _ArticleListState extends State<ArticleList> {
         .toList();
   }
 
-  Future<void> _onArticleIconTap(item) async {
+  Future<void> _onArticleIconTap(Item item) async {
     await Navigator.of(context)
-        .push(MaterialPageRoute(builder: ((context) => const ArticleEdit())));
+        .push(MaterialPageRoute(builder: ((context) => ArticleEdit(item))));
   }
 
   @override
