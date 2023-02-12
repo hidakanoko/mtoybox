@@ -11,11 +11,11 @@ import 'package:mtoybox/modules/interface/category_repository.dart';
 import 'package:mtoybox/modules/interface/converter/article_item_map_converter.dart';
 
 class ArticleRepository implements ArticleGateway {
-  static final _cache = ArticleRepository(
+  static final _instance = ArticleRepository(
       fs: FileSystem.instance(),
       converter: ArticleItemMapConverter(),
       categoryGateway: CategoryRepository.instance());
-
+  List<Item>? _cache;
   final FileSystem _fs;
   final ArticleItemMapConverter _converter;
   final CategoryGateway _categoryGateway;
@@ -31,53 +31,38 @@ class ArticleRepository implements ArticleGateway {
         _categoryGateway = categoryGateway;
 
   factory ArticleRepository.instance() {
-    return _cache;
-  }
-  @override
-  Future<bool> exists() async {
-    return await _fs.existsInDocumentPath(articleFile);
+    return _instance;
   }
 
   @override
-  Future<List<Item>> getAll() async {
-    if (!await exists()) {
-      return [];
+  List<Item> getAll() {
+    var cache = _cache;
+    if (cache == null) {
+      throw Exception('Articles not initialized yet');
     }
-    dynamic contents = json.decode(await _fs.readInDocumentPath(articleFile));
-    if (contents is List && contents.any((e) => e! is Map<String, dynamic>)) {
-      return contents.map<Item>((e) => _converter.fromMap(e)).toList();
-    } else {
-      throw Exception('failed to read items from file');
-    }
+    return cache;
   }
 
   @override
   Future<void> save(Item article) async {
-    var items = await getAll();
+    var items = getAll();
     var idx = items.indexWhere((element) => element.id == article.id);
     if (idx >= 0) {
       items.removeAt(idx);
     }
     items.add(article);
-    await _saveAsMap(items);
-  }
-
-  Future<void> _saveAsMap(List<Item> articles) async {
-    var itemsMap = articles.map((e) => _converter.toMap(e)).toList();
-    var jsonText = jsonEncode(itemsMap);
-    await _fs.saveInDocumentPath(articleFile, jsonText);
+    await _saveToFile(items);
   }
 
   @override
   Future<void> initialize() async {
-    if (!await exists()) {
+    if (!await _fileExists()) {
       await _initializeWithDefault();
     }
     try {
-      // 読み込みできるかチェック
-      await _readAsMap();
+      await _cacheItems();
     } catch (e) {
-      // 読み込みできない場合は初期化
+      // キャッシュに失敗した場合 (フォーマット不正 etc) もう一度初期化してキャッシュリトライ
       await _initializeWithDefault();
     }
   }
@@ -107,11 +92,29 @@ class ArticleRepository implements ArticleGateway {
           'めろん',
           categories.findByName('やさい')?.id),
     ];
-    await _saveAsMap(items);
+    await _saveToFile(items);
   }
 
-  Future<List<Map<String, dynamic>>> _readAsMap() async {
+  Future<bool> _fileExists() async {
+    return await _fs.existsInDocumentPath(articleFile);
+  }
+
+  Future<void> _saveToFile(List<Item> articles) async {
+    var itemsMap = articles.map((e) => _converter.toMap(e)).toList();
+    var jsonText = jsonEncode(itemsMap);
+    await _fs.saveInDocumentPath(articleFile, jsonText);
+    await _cacheItems();
+  }
+
+  Future<void> _cacheItems() async {
+    if (!await _fileExists()) {
+      throw Exception('item file not exists!');
+    }
     dynamic contents = json.decode(await _fs.readInDocumentPath(articleFile));
-    return contents;
+    if (contents is List && contents.any((e) => e! is Map<String, dynamic>)) {
+      _cache = contents.map<Item>((e) => _converter.fromMap(e)).toList();
+    } else {
+      throw Exception('failed to read items from file');
+    }
   }
 }

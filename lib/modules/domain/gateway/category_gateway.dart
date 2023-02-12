@@ -4,7 +4,7 @@ import 'package:mtoybox/modules/domain/model/category/catetory.dart';
 
 abstract class CategoryGateway {
   Future<void> initialize();
-  Future<Categories> getAll();
-  Future<Category?> findById(CategoryId id);
+  Categories getAll();
+  Category? findById(CategoryId id);
   Future<void> save(Category category);
 }

@@ -4,28 +4,18 @@ import 'package:mtoybox/modules/domain/model/article/item.dart';
 import 'package:mtoybox/modules/domain/model/category/catetory.dart';
 import 'package:mtoybox/modules/interface/category_repository.dart';
 
-class ArticleEdit extends StatefulWidget {
-  final Item _item;
-  const ArticleEdit(this._item, {super.key});
-
-  @override
-  State<StatefulWidget> createState() {
-    return _ArticleEditState();
-  }
-}
-
-class _ArticleEditState extends State<ArticleEdit> {
+class ArticleAppBar extends StatelessWidget implements PreferredSizeWidget {
   final CategoryGateway _categoryGateway = CategoryRepository.instance();
+  final Item _item;
+  ArticleAppBar(this._item, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Category?>(
       builder: (context, snapshot) {
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(widget._item.name),
-            backgroundColor: snapshot.hasData ? snapshot.data!.color : null,
-          ),
+        return AppBar(
+          title: Text(_item.name),
+          backgroundColor: snapshot.hasData ? snapshot.data!.color : null,
         );
       },
       future: _findCategory(),
@@ -33,11 +23,14 @@ class _ArticleEditState extends State<ArticleEdit> {
   }
 
   Future<Category?> _findCategory() async {
-    var categoryId = widget._item.categoryId;
+    var categoryId = _item.categoryId;
     if (categoryId != null) {
       return await _categoryGateway.findById(categoryId);
     } else {
       return null;
     }
   }
+
+  @override
+  Size get preferredSize => throw Uni;
 }
