@@ -68,7 +68,7 @@ class ArticleRepository implements ArticleGateway {
   }
 
   Future<void> _initializeWithDefault() async {
-    Categories categories = await _categoryGateway.getAll();
+    Categories categories = _categoryGateway.getAll();
 
     var items = [
       Item(

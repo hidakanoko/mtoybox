@@ -16,8 +16,8 @@ class ArticleList extends StatefulWidget {
 class _ArticleListState extends State<ArticleList> {
   final ArticleGateway articleGateway = ArticleRepository.instance();
 
-  Future<List<ArticleIcon>> _getArticleIcons() async {
-    var list = await articleGateway.getAll();
+  List<ArticleIcon> _getArticleIcons() {
+    var list = articleGateway.getAll();
     return list
         .map((item) => ArticleIcon(item, onTap: () => _onArticleIconTap(item)))
         .toList();
@@ -30,24 +30,13 @@ class _ArticleListState extends State<ArticleList> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: _getArticleIcons(),
-        builder: ((context, snapshot) {
-          Widget body;
-          if (snapshot.hasData && snapshot.data != null) {
-            body = GridView.count(
-                crossAxisCount: 3, children: snapshot.data!.toList());
-          } else {
-            body = const Text('Loading...');
-          }
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text('ずかん'),
-            ),
-            body: body,
-            floatingActionButton: buildButton(),
-          );
-        }));
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('ずかん'),
+      ),
+      body: GridView.count(crossAxisCount: 3, children: _getArticleIcons()),
+      floatingActionButton: buildButton(),
+    );
   }
 
   FloatingActionButton buildButton() {
