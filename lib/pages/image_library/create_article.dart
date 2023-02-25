@@ -28,7 +28,7 @@ class _CreateArticleState extends State<CreateArticle> {
       TextField(
         maxLength: 30,
         style: const TextStyle(
-          fontSize: 20,
+          fontSize: 30,
         ),
         decoration: const InputDecoration(
             icon: Icon(Icons.app_registration_sharp), labelText: 'なまえ'),
@@ -56,8 +56,7 @@ class _CreateArticleState extends State<CreateArticle> {
     ];
     Photo? selectedPhoto = this.selectedPhoto;
     if (selectedPhoto != null) {
-      widgets.add(
-          AspectRatio(aspectRatio: 1.0, child: ArticleImage(selectedPhoto)));
+      widgets.add(ArticleImage(selectedPhoto));
     }
 
     widgets.add(ElevatedButton(

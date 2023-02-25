@@ -9,15 +9,17 @@ class ArticleImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        child: Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-            image: PhotoImageProviderFactory.create(_photo),
-            fit: BoxFit.contain),
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      margin: const EdgeInsets.all(5),
-    ));
+        child: AspectRatio(
+            aspectRatio: 1.0,
+            child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: PhotoImageProviderFactory.create(_photo),
+                    fit: BoxFit.contain),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              margin: const EdgeInsets.all(5),
+            )));
   }
 }

@@ -18,9 +18,12 @@ class Main extends StatelessWidget {
 
     return MaterialApp(
       title: 'まどかのおもちゃ箱',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData.from(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigoAccent),
+          textTheme: Typography.material2021().black),
+      // theme: ThemeData(
+      //   primarySwatch: Colors.blue,
+      // ),
       home: const Menu(),
     );
   }

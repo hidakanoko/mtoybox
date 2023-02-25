@@ -17,7 +17,7 @@ class CategoryItem extends StatelessWidget {
         ),
         Text(
           _category.name.toString(),
-          style: const TextStyle(fontSize: 20),
+          style: const TextStyle(fontSize: 30),
         ),
       ],
     );
