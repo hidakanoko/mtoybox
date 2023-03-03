@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class ArticleText extends StatefulWidget {
+class ArticleNameEdit extends StatefulWidget {
   final void Function(String text)? onChanged;
   final String initialValue;
-  const ArticleText({super.key, this.onChanged, this.initialValue = ""});
+  const ArticleNameEdit({super.key, this.onChanged, this.initialValue = ""});
 
   @override
   State<StatefulWidget> createState() {
@@ -11,7 +11,7 @@ class ArticleText extends StatefulWidget {
   }
 }
 
-class _ArticleTestState extends State<ArticleText> {
+class _ArticleTestState extends State<ArticleNameEdit> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(

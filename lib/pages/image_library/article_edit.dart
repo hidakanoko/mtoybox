@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mtoybox/components/article_image.dart';
+import 'package:mtoybox/components/atoms/article_name_edit.dart';
 import 'package:mtoybox/components/category_item.dart';
 import 'package:mtoybox/components/category_selector.dart';
+import 'package:mtoybox/modules/domain/gateway/article_gateway.dart';
 import 'package:mtoybox/modules/domain/gateway/category_gateway.dart';
 import 'package:mtoybox/modules/domain/model/article/item.dart';
 import 'package:mtoybox/modules/domain/model/category/catetory.dart';
+import 'package:mtoybox/modules/interface/article_repository.dart';
 import 'package:mtoybox/modules/interface/category_repository.dart';
 
 class ArticleEdit extends StatefulWidget {
@@ -19,6 +22,8 @@ class ArticleEdit extends StatefulWidget {
 
 class _ArticleEditState extends State<ArticleEdit> {
   final CategoryGateway _categoryGateway = CategoryRepository.instance();
+  final ArticleGateway _articleGateway = ArticleRepository.instance();
+  Item? _editingItem;
   bool isEditing = false;
 
   @override
@@ -47,12 +52,19 @@ class _ArticleEditState extends State<ArticleEdit> {
 
   void _editArticle() {
     setState(() {
+      _editingItem = widget._item.clone();
       isEditing = true;
     });
   }
 
   void _saveArticle() {
     setState(() {
+      var item = _editingItem;
+      if (item != null) {
+        widget._item.name = item.name;
+        widget._item.categoryId = item.categoryId;
+        _articleGateway.save(widget._item);
+      }
       isEditing = false;
     });
   }
@@ -78,14 +90,25 @@ class _ArticleEditState extends State<ArticleEdit> {
   }
 
   Widget _createEditBody() {
+    _editingItem = widget._item.clone();
     var items = <Widget>[];
     items.add(Center(
-        child: Text(widget._item.name, style: const TextStyle(fontSize: 30))));
+        child: ArticleNameEdit(
+      initialValue: widget._item.name,
+      onChanged: (text) {
+        _editingItem?.name = text;
+      },
+    )));
 
     items.add(ArticleImage(widget._item.photo));
 
     var category = _getCategory();
-    items.add(CategorySelector(category));
+    items.add(CategorySelector(
+      category,
+      onChanged: (p0) {
+        _editingItem?.categoryId = p0.id;
+      },
+    ));
 
     return Container(
       margin: const EdgeInsets.all(20),
