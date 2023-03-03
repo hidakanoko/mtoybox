@@ -70,7 +70,9 @@ class _CreateArticleState extends State<CreateArticle> {
   }
 
   bool isFilled() {
-    return providedName != null && selectedPhoto != null;
+    return providedName != null &&
+        selectedPhoto != null &&
+        selectedCategory != null;
   }
 
   void close() {
