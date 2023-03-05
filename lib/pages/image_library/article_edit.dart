@@ -45,15 +45,32 @@ class _ArticleEditState extends State<ArticleEdit> {
         onPressed: _editArticle, child: const Icon(Icons.edit_rounded));
   }
 
-  FloatingActionButton buildSaveButton() {
-    return FloatingActionButton(
-        onPressed: _saveArticle, child: const Icon(Icons.done));
+  Widget buildSaveButton() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(right: 5),
+          child: FloatingActionButton(
+              onPressed: _cancelEdit, child: const Icon(Icons.close_outlined)),
+        ),
+        FloatingActionButton(
+            onPressed: _saveArticle, child: const Icon(Icons.done)),
+      ],
+    );
   }
 
   void _editArticle() {
     setState(() {
       _editingItem = widget._item.clone();
       isEditing = true;
+    });
+  }
+
+  void _cancelEdit() {
+    setState(() {
+      _editingItem = null;
+      isEditing = false;
     });
   }
 
