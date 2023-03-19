@@ -4,8 +4,8 @@ import 'package:mtoybox/components/button/floating_add_button.dart';
 import 'package:mtoybox/modules/domain/gateway/article_gateway.dart';
 import 'package:mtoybox/modules/domain/model/article/item.dart';
 import 'package:mtoybox/modules/interface/article_repository.dart';
-import 'package:mtoybox/pages/image_library/article_edit.dart';
-import 'package:mtoybox/pages/image_library/create_article.dart';
+import 'package:mtoybox/pages/article/article_edit.dart';
+import 'package:mtoybox/pages/article/create_article.dart';
 
 class ArticleList extends StatefulWidget {
   const ArticleList({super.key});
