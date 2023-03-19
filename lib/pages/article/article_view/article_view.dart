@@ -12,18 +12,19 @@ import 'package:mtoybox/modules/domain/model/article/item.dart';
 import 'package:mtoybox/modules/domain/model/category/catetory.dart';
 import 'package:mtoybox/modules/interface/article_repository.dart';
 import 'package:mtoybox/modules/interface/category_repository.dart';
+import 'package:mtoybox/pages/article/article_view/popup_menu.dart';
 
-class ArticleEdit extends StatefulWidget {
+class ArticleView extends StatefulWidget {
   final Item _item;
-  const ArticleEdit(this._item, {super.key});
+  const ArticleView(this._item, {super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return _ArticleEditState();
+    return _ArticleViewState();
   }
 }
 
-class _ArticleEditState extends State<ArticleEdit> {
+class _ArticleViewState extends State<ArticleView> {
   final CategoryGateway _categoryGateway = CategoryRepository.instance();
   final ArticleGateway _articleGateway = ArticleRepository.instance();
   Item? _editingItem;
@@ -32,11 +33,12 @@ class _ArticleEditState extends State<ArticleEdit> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(widget._item.name),
+        actions: [PopupMenu(_editArticle, _deleteArticle)],
+      ),
       body: isEditing ? _createEditBody() : _createViewBody(),
-      floatingActionButton: isEditing
-          ? buildSaveButton()
-          : FloatingEditButton(onPressed: _editArticle),
+      floatingActionButton: isEditing ? buildSaveButton() : null,
     );
   }
 
@@ -59,6 +61,8 @@ class _ArticleEditState extends State<ArticleEdit> {
       ],
     );
   }
+
+  void _deleteArticle() {}
 
   void _editArticle() {
     setState(() {

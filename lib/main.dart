@@ -21,9 +21,6 @@ class Main extends StatelessWidget {
       theme: ThemeData.from(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigoAccent),
           textTheme: Typography.material2021().black),
-      // theme: ThemeData(
-      //   primarySwatch: Colors.blue,
-      // ),
       home: const Menu(),
     );
   }

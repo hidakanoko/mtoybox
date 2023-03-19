@@ -4,7 +4,7 @@ import 'package:mtoybox/components/button/floating_add_button.dart';
 import 'package:mtoybox/modules/domain/gateway/article_gateway.dart';
 import 'package:mtoybox/modules/domain/model/article/item.dart';
 import 'package:mtoybox/modules/interface/article_repository.dart';
-import 'package:mtoybox/pages/article/article_edit.dart';
+import 'package:mtoybox/pages/article/article_view/article_view.dart';
 import 'package:mtoybox/pages/article/create_article.dart';
 
 class ArticleList extends StatefulWidget {
@@ -26,7 +26,7 @@ class _ArticleListState extends State<ArticleList> {
 
   Future<void> _onArticleIconTap(Item item) async {
     await Navigator.of(context)
-        .push(MaterialPageRoute(builder: ((context) => ArticleEdit(item))));
+        .push(MaterialPageRoute(builder: ((context) => ArticleView(item))));
   }
 
   @override
