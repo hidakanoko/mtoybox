@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mtoybox/components/article_image.dart';
-import 'package:mtoybox/components/atoms/article_name_edit.dart';
+import 'package:mtoybox/components/input/article_name_edit.dart';
+import 'package:mtoybox/components/button/floating_close_button.dart';
+import 'package:mtoybox/components/button/floating_commit_button.dart';
+import 'package:mtoybox/components/button/floating_edit_button.dart';
 import 'package:mtoybox/components/category_item.dart';
 import 'package:mtoybox/components/category_selector.dart';
 import 'package:mtoybox/modules/domain/gateway/article_gateway.dart';
@@ -31,7 +34,9 @@ class _ArticleEditState extends State<ArticleEdit> {
     return Scaffold(
       appBar: AppBar(),
       body: isEditing ? _createEditBody() : _createViewBody(),
-      floatingActionButton: isEditing ? buildSaveButton() : buildEditButton(),
+      floatingActionButton: isEditing
+          ? buildSaveButton()
+          : FloatingEditButton(onPressed: _editArticle),
     );
   }
 
@@ -40,22 +45,17 @@ class _ArticleEditState extends State<ArticleEdit> {
     return categoryId != null ? _categoryGateway.findById(categoryId) : null;
   }
 
-  FloatingActionButton buildEditButton() {
-    return FloatingActionButton(
-        onPressed: _editArticle, child: const Icon(Icons.edit_rounded));
-  }
-
   Widget buildSaveButton() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Padding(
           padding: const EdgeInsets.only(right: 5),
-          child: FloatingActionButton(
-              onPressed: _cancelEdit, child: const Icon(Icons.close_outlined)),
+          child: FloatingCloseButton(onPressed: _cancelEdit),
         ),
-        FloatingActionButton(
-            onPressed: _saveArticle, child: const Icon(Icons.done)),
+        FloatingCommitButton(
+          onPressed: _saveArticle,
+        )
       ],
     );
   }

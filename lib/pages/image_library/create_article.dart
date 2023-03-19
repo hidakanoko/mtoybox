@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mtoybox/components/article_image.dart';
-import 'package:mtoybox/components/atoms/camera_button.dart';
+import 'package:mtoybox/components/button/camera_button.dart';
 import 'package:mtoybox/components/category_selector.dart';
 import 'package:mtoybox/modules/domain/gateway/article_gateway.dart';
 import 'package:mtoybox/modules/domain/model/article/item.dart';

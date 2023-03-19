@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mtoybox/components/article_icon.dart';
+import 'package:mtoybox/components/button/floating_add_button.dart';
 import 'package:mtoybox/modules/domain/gateway/article_gateway.dart';
 import 'package:mtoybox/modules/domain/model/article/item.dart';
 import 'package:mtoybox/modules/interface/article_repository.dart';
@@ -35,13 +36,8 @@ class _ArticleListState extends State<ArticleList> {
         title: const Text('ずかん'),
       ),
       body: GridView.count(crossAxisCount: 3, children: _getArticleIcons()),
-      floatingActionButton: buildButton(),
+      floatingActionButton: FloatingAddButton(onPressed: addArticle),
     );
-  }
-
-  FloatingActionButton buildButton() {
-    return FloatingActionButton(
-        onPressed: addArticle, child: const Icon(Icons.add));
   }
 
   addArticle() async {
