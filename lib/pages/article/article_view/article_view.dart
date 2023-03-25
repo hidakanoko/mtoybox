@@ -3,7 +3,6 @@ import 'package:mtoybox/components/article_image.dart';
 import 'package:mtoybox/components/input/article_name_edit.dart';
 import 'package:mtoybox/components/button/floating_close_button.dart';
 import 'package:mtoybox/components/button/floating_commit_button.dart';
-import 'package:mtoybox/components/button/floating_edit_button.dart';
 import 'package:mtoybox/components/category_item.dart';
 import 'package:mtoybox/components/category_selector.dart';
 import 'package:mtoybox/modules/domain/gateway/article_gateway.dart';
