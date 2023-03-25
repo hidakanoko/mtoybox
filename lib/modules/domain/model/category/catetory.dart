@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mtoybox/modules/domain/model/category/category_id.dart';
 
+@immutable
 class Category {
   final CategoryId id;
   final String name;
   final Color color;
 
-  Category(this.id, this.name, this.color);
+  const Category(this.id, this.name, this.color);
 
   @override
   int get hashCode => id.toString().hashCode;

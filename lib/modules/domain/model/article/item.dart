@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:mtoybox/modules/domain/model/article/item_id.dart';
 import 'package:mtoybox/modules/domain/model/article/photo.dart';
 import 'package:mtoybox/modules/domain/model/category/category_id.dart';
 
+@immutable
 class Item {
   final ItemId id;
   Photo photo;

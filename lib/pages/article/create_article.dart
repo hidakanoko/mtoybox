@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mtoybox/components/article_image.dart';
 import 'package:mtoybox/components/button/camera_button.dart';
 import 'package:mtoybox/components/category_selector.dart';
-import 'package:mtoybox/modules/domain/gateway/article_gateway.dart';
 import 'package:mtoybox/modules/domain/model/article/item.dart';
 import 'package:mtoybox/modules/domain/model/article/item_id.dart';
 import 'package:mtoybox/modules/domain/model/article/photo.dart';
 import 'package:mtoybox/modules/domain/model/category/catetory.dart';
-import 'package:mtoybox/modules/interface/article_repository.dart';
+import 'package:mtoybox/modules/interface/provider_factory.dart';
 
-class CreateArticle extends StatefulWidget {
+class CreateArticle extends ConsumerStatefulWidget {
   const CreateArticle({super.key});
 
   @override
-  State<CreateArticle> createState() => _CreateArticleState();
+  ConsumerState<CreateArticle> createState() => _CreateArticleState();
 }
 
-class _CreateArticleState extends State<CreateArticle> {
-  final ArticleGateway _articleGateway = ArticleRepository.instance();
+class _CreateArticleState extends ConsumerState<CreateArticle> {
   String? providedName;
   Photo? selectedPhoto;
   Category? selectedCategory;
@@ -88,7 +87,7 @@ class _CreateArticleState extends State<CreateArticle> {
 
     var newItem = Item(ItemId.generate(), photo, name, selectedCategory!.id);
 
-    _articleGateway.save(newItem);
+    ref.read(articleProvider.notifier).save(newItem);
 
     Navigator.pop(context, newItem);
   }

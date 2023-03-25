@@ -1,6 +1,9 @@
+import 'package:flutter/material.dart';
+
+@immutable
 class Identity<T> {
   final T _id;
-  Identity(this._id);
+  const Identity(this._id);
 
   @override
   String toString() {

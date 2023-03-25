@@ -1,31 +1,47 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:mtoybox/modules/domain/gateway/category_gateway.dart';
-import 'package:mtoybox/modules/domain/model/category/categories.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mtoybox/modules/domain/model/category/category_id.dart';
 import 'package:mtoybox/modules/domain/model/category/catetory.dart';
 import 'package:mtoybox/modules/infrastructure/file_system.dart';
 import 'package:mtoybox/modules/interface/converter/category_map_converter.dart';
 
-class CategoryRepository implements CategoryGateway {
-  static final _instance = CategoryRepository(
-      fs: FileSystem.instance(), converter: CategoryMapConverter());
-  Categories? _cache;
+class CategoryRepository extends StateNotifier<List<Category>> {
   final FileSystem fs;
-  final CategoryMapConverter converter;
+  final CategoryMapConverter converter = CategoryMapConverter();
 
   final categoryFile = 'category.json';
 
-  CategoryRepository({required this.fs, required this.converter});
+  CategoryRepository(super._state, {required this.fs});
 
-  factory CategoryRepository.instance() {
-    return _instance;
+  Category? findById(CategoryId id) {
+    if (!exists(id)) {
+      return null;
+    }
+    return state.firstWhere((element) {
+      return element.id == id;
+    });
   }
 
-  @override
+  bool exists(CategoryId id) {
+    return state.any((element) => element.id == id);
+  }
+
+  Future<void> save(Category category) async {
+    var cloned = List.of(state);
+    var old = findById(category.id);
+    if (old == null) {
+      cloned.add(category);
+    } else {
+      cloned.remove(old);
+      cloned.add(category);
+    }
+    await _saveToFileAndCache(cloned);
+  }
+
   Future<void> initialize() async {
-    if (!await _exists()) {
+    if (!await _fileExists()) {
       _initializeWithDefault();
       return;
     }
@@ -38,32 +54,7 @@ class CategoryRepository implements CategoryGateway {
     }
   }
 
-  @override
-  Categories getAll() {
-    var cache = _cache;
-    if (cache == null) {
-      throw Exception('Category not found, restart app.');
-    }
-    return cache;
-  }
-
-  @override
-  Category? findById(CategoryId id) {
-    return getAll().findById(id);
-  }
-
-  @override
-  Future<void> save(Category category) async {
-    var categories = getAll();
-    if (!categories.exists(category.id)) {
-      categories.add(category);
-    } else {
-      categories.update(category);
-    }
-    await _saveToFile(categories.asList());
-  }
-
-  Future<bool> _exists() async {
+  Future<bool> _fileExists() async {
     return await fs.existsInDocumentPath(categoryFile);
   }
 
@@ -74,10 +65,10 @@ class CategoryRepository implements CategoryGateway {
       Category(CategoryId.generate(), 'やさい', Colors.green),
       Category(CategoryId.generate(), 'さかな', Colors.blue),
     ];
-    await _saveToFile(defaults);
+    await _saveToFileAndCache(defaults);
   }
 
-  Future<void> _saveToFile(List<Category> categories) async {
+  Future<void> _saveToFileAndCache(List<Category> categories) async {
     var jsonStr =
         jsonEncode(categories.map((e) => converter.toMap(e)).toList());
     fs.saveInDocumentPath(categoryFile, jsonStr);
@@ -92,8 +83,9 @@ class CategoryRepository implements CategoryGateway {
     if (result is! List) {
       throw Exception('failed to read category from file');
     }
-    _cache = Categories(result.map((e) {
+
+    state = result.map((e) {
       return converter.fromMap(e);
-    }).toList());
+    }).toList();
   }
 }

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mtoybox/components/article_image.dart';
-import 'package:mtoybox/modules/domain/gateway/category_gateway.dart';
 import 'package:mtoybox/modules/domain/model/article/item.dart';
-import 'package:mtoybox/modules/interface/category_repository.dart';
+import 'package:mtoybox/modules/interface/provider_factory.dart';
 
-class ArticleIcon extends StatelessWidget {
+class ArticleIcon extends ConsumerWidget {
   final Item item;
-  final CategoryGateway _categoryGateway = CategoryRepository.instance();
   final void Function()? _onTap;
 
   ArticleIcon(this.item, {Key? key, void Function()? onTap})
@@ -14,12 +13,13 @@ class ArticleIcon extends StatelessWidget {
         super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    var categories = ref.watch(categoryProvider);
     var categoryId = item.categoryId;
     return _wrapByGestureDetectorIfNecessary(Container(
         decoration: BoxDecoration(
           color: categoryId != null
-              ? _categoryGateway.findById(categoryId)?.color
+              ? categories.findById(categoryId)?.color
               : null,
           borderRadius: BorderRadius.circular(20.0),
         ),

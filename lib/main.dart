@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:mtoybox/modules/interface/article_repository.dart';
-import 'package:mtoybox/modules/interface/category_repository.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mtoybox/modules/interface/provider_factory.dart';
 import 'package:mtoybox/pages/menu.dart';
 
 void main() async {
-  runApp(const Main());
+  runApp(const ProviderScope(child: Main()));
 }
 
-class Main extends StatelessWidget {
+class Main extends ConsumerWidget {
   const Main({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    CategoryRepository.instance()
-        .initialize()
-        .whenComplete(() => ArticleRepository.instance().initialize());
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.read(categoryProvider.notifier).initialize();
+    ref.read(articleProvider.notifier).initialize();
 
     return MaterialApp(
       title: 'まどかのおもちゃ箱',

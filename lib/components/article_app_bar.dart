@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:mtoybox/modules/domain/gateway/category_gateway.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mtoybox/modules/domain/model/article/item.dart';
-import 'package:mtoybox/modules/interface/category_repository.dart';
+import 'package:mtoybox/modules/interface/provider_factory.dart';
 
-class ArticleAppBar extends StatelessWidget {
-  final CategoryGateway _categoryGateway = CategoryRepository.instance();
+class ArticleAppBar extends ConsumerWidget {
   final Item _item;
-  ArticleAppBar(this._item, {super.key});
+  const ArticleAppBar(this._item, {super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    var categories = ref.watch(categoryProvider);
     var categoryId = _item.categoryId;
     return AppBar(
       title: Text(_item.name),
-      backgroundColor: categoryId != null
-          ? _categoryGateway.findById(categoryId)?.color
-          : null,
+      backgroundColor:
+          categoryId != null ? categories.findById(categoryId)?.color : null,
     );
   }
 }

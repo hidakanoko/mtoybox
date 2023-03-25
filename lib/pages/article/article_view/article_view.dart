@@ -1,33 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mtoybox/components/article_image.dart';
 import 'package:mtoybox/components/input/article_name_edit.dart';
 import 'package:mtoybox/components/button/floating_close_button.dart';
 import 'package:mtoybox/components/button/floating_commit_button.dart';
 import 'package:mtoybox/components/category_item.dart';
 import 'package:mtoybox/components/category_selector.dart';
-import 'package:mtoybox/modules/domain/gateway/article_gateway.dart';
-import 'package:mtoybox/modules/domain/gateway/category_gateway.dart';
 import 'package:mtoybox/modules/domain/model/article/item.dart';
 import 'package:mtoybox/modules/domain/model/category/catetory.dart';
-import 'package:mtoybox/modules/interface/article_repository.dart';
-import 'package:mtoybox/modules/interface/category_repository.dart';
+import 'package:mtoybox/modules/interface/provider_factory.dart';
 import 'package:mtoybox/pages/article/article_view/popup_menu.dart';
 
-class ArticleView extends StatefulWidget {
+class ArticleView extends ConsumerStatefulWidget {
   final Item _item;
   const ArticleView(this._item, {super.key});
 
   @override
-  State<StatefulWidget> createState() {
+  ConsumerState<ConsumerStatefulWidget> createState() {
     return _ArticleViewState();
   }
 }
 
-class _ArticleViewState extends State<ArticleView> {
-  final CategoryGateway _categoryGateway = CategoryRepository.instance();
-  final ArticleGateway _articleGateway = ArticleRepository.instance();
-  Item? _editingItem;
+class _ArticleViewState extends ConsumerState<ArticleView> {
+  late Item saved;
+  late Item editing;
   bool isEditing = false;
+
+  @override
+  void initState() {
+    super.initState();
+    saved = widget._item;
+    editing = widget._item;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +46,10 @@ class _ArticleViewState extends State<ArticleView> {
   }
 
   Category? _getCategory() {
-    var categoryId = widget._item.categoryId;
-    return categoryId != null ? _categoryGateway.findById(categoryId) : null;
+    var categoryId = editing.categoryId;
+    return categoryId != null
+        ? ref.read(categoryProvider).findById(categoryId)
+        : null;
   }
 
   Widget buildSaveButton() {
@@ -65,26 +71,22 @@ class _ArticleViewState extends State<ArticleView> {
 
   void _editArticle() {
     setState(() {
-      _editingItem = widget._item.clone();
       isEditing = true;
     });
   }
 
   void _cancelEdit() {
     setState(() {
-      _editingItem = null;
+      // 保存されている状態に戻して編集を終了
+      editing = saved;
       isEditing = false;
     });
   }
 
   void _saveArticle() {
     setState(() {
-      var item = _editingItem;
-      if (item != null) {
-        widget._item.name = item.name;
-        widget._item.categoryId = item.categoryId;
-        _articleGateway.save(widget._item);
-      }
+      ref.read(articleProvider.notifier).save(editing);
+      saved = editing;
       isEditing = false;
     });
   }
@@ -110,13 +112,12 @@ class _ArticleViewState extends State<ArticleView> {
   }
 
   Widget _createEditBody() {
-    _editingItem = widget._item.clone();
     var items = <Widget>[];
     items.add(Center(
         child: ArticleNameEdit(
       initialValue: widget._item.name,
       onChanged: (text) {
-        _editingItem?.name = text;
+        editing.name = text;
       },
     )));
 
@@ -125,8 +126,8 @@ class _ArticleViewState extends State<ArticleView> {
     var category = _getCategory();
     items.add(CategorySelector(
       category,
-      onChanged: (p0) {
-        _editingItem?.categoryId = p0.id;
+      onChanged: (category) {
+        editing.categoryId = category.id;
       },
     ));
 
