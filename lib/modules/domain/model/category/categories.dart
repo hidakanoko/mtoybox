@@ -1,10 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:mtoybox/modules/domain/model/category/category_id.dart';
 import 'package:mtoybox/modules/domain/model/category/catetory.dart';
 
+@immutable
 class Categories {
   final List<Category> _list;
 
-  Categories(this._list);
+  const Categories(this._list);
 
   Category? findById(CategoryId id) {
     if (!exists(id)) {
@@ -27,17 +29,11 @@ class Categories {
     return _list.any((element) => element.id == id);
   }
 
-  void add(Category category) {
-    _list.add(category);
-  }
-
-  void update(Category category) {
-    var old = findById(category.id);
-    _list.remove(old);
-    _list.add(category);
-  }
-
   List<Category> asList() {
-    return _list.toList();
+    return List.of(_list);
+  }
+
+  Categories copyWith() {
+    return Categories(asList());
   }
 }

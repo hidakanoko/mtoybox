@@ -12,15 +12,28 @@ class Main extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.read(categoryProvider.notifier).initialize();
-    ref.read(articleProvider.notifier).initialize();
+    var categoryFuture = ref.watch(categoryInitializerFutureProvider);
+    AsyncValue? articleFuture;
+    if (!categoryFuture.isLoading) {
+      articleFuture = ref.watch(articleInitializerFutureProvider);
+    }
 
-    return MaterialApp(
-      title: 'まどかのおもちゃ箱',
-      theme: ThemeData.from(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigoAccent),
-          textTheme: Typography.material2021().black),
-      home: const Menu(),
-    );
+    Widget mainWidget;
+    if (categoryFuture.hasError ||
+        (articleFuture != null && articleFuture.hasError)) {
+      mainWidget = const Text('error occur while loading');
+    } else if (articleFuture == null || articleFuture.isLoading) {
+      mainWidget = const CircularProgressIndicator();
+    } else {
+      mainWidget = MaterialApp(
+        title: 'まどかのおもちゃ箱',
+        theme: ThemeData.from(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigoAccent),
+            textTheme: Typography.material2021().black),
+        home: const Menu(),
+      );
+    }
+
+    return mainWidget;
   }
 }

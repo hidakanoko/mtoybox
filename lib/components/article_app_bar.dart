@@ -9,12 +9,12 @@ class ArticleAppBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var categories = ref.watch(categoryProvider);
     var categoryId = _item.categoryId;
     return AppBar(
       title: Text(_item.name),
-      backgroundColor:
-          categoryId != null ? categories.findById(categoryId)?.color : null,
+      backgroundColor: categoryId != null
+          ? ref.watch(categoryProvider).findById(categoryId)?.color
+          : null,
     );
   }
 }

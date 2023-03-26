@@ -7,7 +7,7 @@ import 'package:mtoybox/modules/interface/category_repository.dart';
 
 final categoryProvider =
     StateNotifierProvider<CategoryRepository, Categories>((ref) {
-  return CategoryRepository(Categories([]), fs: FileSystem.instance());
+  return CategoryRepository(const Categories([]), fs: FileSystem.instance());
 });
 
 final articleProvider =
@@ -15,4 +15,12 @@ final articleProvider =
   final categories = ref.watch(categoryProvider);
   return ArticleRepository([],
       fs: FileSystem.instance(), categories: categories);
+});
+
+final categoryInitializerFutureProvider = FutureProvider((ref) async {
+  ref.read(categoryProvider.notifier).initialize();
+});
+
+final articleInitializerFutureProvider = FutureProvider((ref) async {
+  ref.read(articleProvider.notifier).initialize();
 });

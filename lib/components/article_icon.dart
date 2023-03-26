@@ -14,12 +14,11 @@ class ArticleIcon extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var categories = ref.watch(categoryProvider);
     var categoryId = item.categoryId;
     return _wrapByGestureDetectorIfNecessary(Container(
         decoration: BoxDecoration(
           color: categoryId != null
-              ? categories.findById(categoryId)?.color
+              ? ref.watch(categoryProvider).findById(categoryId)?.color
               : null,
           borderRadius: BorderRadius.circular(20.0),
         ),

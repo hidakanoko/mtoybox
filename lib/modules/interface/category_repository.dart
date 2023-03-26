@@ -2,12 +2,13 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mtoybox/modules/domain/model/category/categories.dart';
 import 'package:mtoybox/modules/domain/model/category/category_id.dart';
 import 'package:mtoybox/modules/domain/model/category/catetory.dart';
 import 'package:mtoybox/modules/infrastructure/file_system.dart';
 import 'package:mtoybox/modules/interface/converter/category_map_converter.dart';
 
-class CategoryRepository extends StateNotifier<List<Category>> {
+class CategoryRepository extends StateNotifier<Categories> {
   final FileSystem fs;
   final CategoryMapConverter converter = CategoryMapConverter();
 
@@ -15,29 +16,15 @@ class CategoryRepository extends StateNotifier<List<Category>> {
 
   CategoryRepository(super._state, {required this.fs});
 
-  Category? findById(CategoryId id) {
-    if (!exists(id)) {
-      return null;
-    }
-    return state.firstWhere((element) {
-      return element.id == id;
-    });
-  }
-
-  bool exists(CategoryId id) {
-    return state.any((element) => element.id == id);
-  }
-
   Future<void> save(Category category) async {
-    var cloned = List.of(state);
-    var old = findById(category.id);
-    if (old == null) {
-      cloned.add(category);
+    var clonedList = state.asList();
+    if (state.exists(category.id)) {
+      clonedList.remove(state.findById(category.id));
+      clonedList.add(category);
     } else {
-      cloned.remove(old);
-      cloned.add(category);
+      clonedList.add(category);
     }
-    await _saveToFileAndCache(cloned);
+    await _saveToFileAndUpdateState(clonedList);
   }
 
   Future<void> initialize() async {
@@ -65,10 +52,10 @@ class CategoryRepository extends StateNotifier<List<Category>> {
       Category(CategoryId.generate(), 'やさい', Colors.green),
       Category(CategoryId.generate(), 'さかな', Colors.blue),
     ];
-    await _saveToFileAndCache(defaults);
+    await _saveToFileAndUpdateState(defaults);
   }
 
-  Future<void> _saveToFileAndCache(List<Category> categories) async {
+  Future<void> _saveToFileAndUpdateState(List<Category> categories) async {
     var jsonStr =
         jsonEncode(categories.map((e) => converter.toMap(e)).toList());
     fs.saveInDocumentPath(categoryFile, jsonStr);
@@ -84,8 +71,8 @@ class CategoryRepository extends StateNotifier<List<Category>> {
       throw Exception('failed to read category from file');
     }
 
-    state = result.map((e) {
+    state = Categories(result.map((e) {
       return converter.fromMap(e);
-    }).toList();
+    }).toList());
   }
 }
