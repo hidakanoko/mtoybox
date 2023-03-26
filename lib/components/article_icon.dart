@@ -8,7 +8,7 @@ class ArticleIcon extends ConsumerWidget {
   final Item item;
   final void Function()? _onTap;
 
-  ArticleIcon(this.item, {Key? key, void Function()? onTap})
+  const ArticleIcon(this.item, {Key? key, void Function()? onTap})
       : _onTap = onTap,
         super(key: key);
 

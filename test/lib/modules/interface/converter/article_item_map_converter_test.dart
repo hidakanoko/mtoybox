@@ -11,10 +11,10 @@ void main() {
   test('ArticleItemMapConverter toMap()', (() {
     // given
     var item = Item(
-        ItemId(const UuidValue('testitemid')),
-        Photo('path/to/photo', isBuiltin: true),
+        const ItemId(UuidValue('testitemid')),
+        const Photo('path/to/photo', isBuiltin: true),
         'りんご',
-        CategoryId(const UuidValue('testcategoryid')));
+        const CategoryId(UuidValue('testcategoryid')));
 
     // when
     var map = converter.toMap(item);

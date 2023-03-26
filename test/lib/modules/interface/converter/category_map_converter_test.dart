@@ -9,8 +9,8 @@ void main() {
   var converter = CategoryMapConverter();
   test('CategoryMapConverter toMap()', (() {
     // given
-    var category = Category(
-        CategoryId(const UuidValue('testcategoryid')), 'どうぶつ', Colors.red);
+    var category = const Category(
+        CategoryId(UuidValue('testcategoryid')), 'どうぶつ', Colors.red);
 
     // when
     var map = converter.toMap(category);
