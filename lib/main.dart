@@ -12,17 +12,12 @@ class Main extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var categoryFuture = ref.watch(categoryInitializerFutureProvider);
-    AsyncValue? articleFuture;
-    if (!categoryFuture.isLoading) {
-      articleFuture = ref.watch(articleInitializerFutureProvider);
-    }
+    var initFuture = ref.watch(repositoryInitializerFutureProvider);
 
     Widget mainWidget;
-    if (categoryFuture.hasError ||
-        (articleFuture != null && articleFuture.hasError)) {
+    if (initFuture.hasError) {
       mainWidget = const Text('error occur while loading');
-    } else if (articleFuture == null || articleFuture.isLoading) {
+    } else if (initFuture.isLoading) {
       mainWidget = const CircularProgressIndicator();
     } else {
       mainWidget = MaterialApp(

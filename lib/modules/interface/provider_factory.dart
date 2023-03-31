@@ -1,26 +1,24 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mtoybox/modules/application/repository_initializer.dart';
 import 'package:mtoybox/modules/domain/model/article/item.dart';
 import 'package:mtoybox/modules/domain/model/category/categories.dart';
 import 'package:mtoybox/modules/infrastructure/file_system.dart';
 import 'package:mtoybox/modules/interface/article_repository.dart';
 import 'package:mtoybox/modules/interface/category_repository.dart';
 
-final categoryProvider =
+final categoryRepositoryProvider =
     StateNotifierProvider<CategoryRepository, Categories>((ref) {
   return CategoryRepository(const Categories([]), fs: FileSystem.instance());
 });
 
-final articleProvider =
+final articleRepositoryProvider =
     StateNotifierProvider<ArticleRepository, List<Item>>((ref) {
-  final categories = ref.watch(categoryProvider);
-  return ArticleRepository([],
-      fs: FileSystem.instance(), categories: categories);
+  return ArticleRepository([], fs: FileSystem.instance());
 });
 
-final categoryInitializerFutureProvider = FutureProvider((ref) async {
-  ref.read(categoryProvider.notifier).initialize();
-});
-
-final articleInitializerFutureProvider = FutureProvider((ref) async {
-  ref.read(articleProvider.notifier).initialize();
+final repositoryInitializerFutureProvider = FutureProvider((ref) async {
+  var repositoryInitializer = RepositoryInitializer(
+      categoryRepository: ref.read(categoryRepositoryProvider.notifier),
+      articleRepository: ref.read(articleRepositoryProvider.notifier));
+  return repositoryInitializer.initializeIfNotExists();
 });

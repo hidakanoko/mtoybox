@@ -13,7 +13,7 @@ class ArticleAppBar extends ConsumerWidget {
     return AppBar(
       title: Text(_item.name),
       backgroundColor: categoryId != null
-          ? ref.watch(categoryProvider).findById(categoryId)?.color
+          ? ref.watch(categoryRepositoryProvider).findById(categoryId)?.color
           : null,
     );
   }

@@ -1,9 +1,7 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mtoybox/modules/domain/model/category/categories.dart';
-import 'package:mtoybox/modules/domain/model/category/category_id.dart';
 import 'package:mtoybox/modules/domain/model/category/catetory.dart';
 import 'package:mtoybox/modules/infrastructure/file_system.dart';
 import 'package:mtoybox/modules/interface/converter/category_map_converter.dart';
@@ -16,6 +14,10 @@ class CategoryRepository extends StateNotifier<Categories> {
 
   CategoryRepository(super._state, {required this.fs});
 
+  Future<void> init() async {
+    await _cacheCategories();
+  }
+
   Future<void> save(Category category) async {
     var clonedList = state.asList();
     if (state.exists(category.id)) {
@@ -27,32 +29,12 @@ class CategoryRepository extends StateNotifier<Categories> {
     await _saveToFileAndUpdateState(clonedList);
   }
 
-  Future<void> initialize() async {
-    if (!await _fileExists()) {
-      _initializeWithDefault();
-      return;
-    }
-    try {
-      _cacheCategories();
-    } catch (e) {
-      // キャッシュに失敗した場合 (フォーマット不正 etc) もう一度初期化してキャッシュリトライ
-      _initializeWithDefault();
-      _cacheCategories();
-    }
+  Future<void> saveAll(Categories categories) async {
+    await _saveToFileAndUpdateState(categories.asList());
   }
 
-  Future<bool> _fileExists() async {
+  Future<bool> dataExists() async {
     return await fs.existsInDocumentPath(categoryFile);
-  }
-
-  Future<void> _initializeWithDefault() async {
-    var defaults = [
-      Category(CategoryId.generate(), 'どうぶつ', Colors.red),
-      Category(CategoryId.generate(), 'くだもの', Colors.yellow),
-      Category(CategoryId.generate(), 'やさい', Colors.green),
-      Category(CategoryId.generate(), 'さかな', Colors.blue),
-    ];
-    await _saveToFileAndUpdateState(defaults);
   }
 
   Future<void> _saveToFileAndUpdateState(List<Category> categories) async {

@@ -11,7 +11,7 @@ class CategorySelector extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var categories = ref.watch(categoryProvider);
+    var categories = ref.watch(categoryRepositoryProvider);
     return DropdownButton<Category>(
         value: initial,
         items: categories

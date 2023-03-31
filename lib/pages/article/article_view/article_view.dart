@@ -48,7 +48,7 @@ class _ArticleViewState extends ConsumerState<ArticleView> {
   Category? _getCategory() {
     var categoryId = editing.categoryId;
     return categoryId != null
-        ? ref.read(categoryProvider).findById(categoryId)
+        ? ref.read(categoryRepositoryProvider).findById(categoryId)
         : null;
   }
 
@@ -85,7 +85,7 @@ class _ArticleViewState extends ConsumerState<ArticleView> {
 
   void _saveArticle() {
     setState(() {
-      ref.read(articleProvider.notifier).save(editing);
+      ref.read(articleRepositoryProvider.notifier).save(editing);
       saved = editing;
       isEditing = false;
     });

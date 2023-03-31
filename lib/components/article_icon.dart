@@ -18,7 +18,10 @@ class ArticleIcon extends ConsumerWidget {
     return _wrapByGestureDetectorIfNecessary(Container(
         decoration: BoxDecoration(
           color: categoryId != null
-              ? ref.watch(categoryProvider).findById(categoryId)?.color
+              ? ref
+                  .watch(categoryRepositoryProvider)
+                  .findById(categoryId)
+                  ?.color
               : null,
           borderRadius: BorderRadius.circular(20.0),
         ),

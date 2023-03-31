@@ -12,7 +12,7 @@ class ArticleList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final articles = ref.watch(articleProvider);
+    final articles = ref.watch(articleRepositoryProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text('ずかん'),
