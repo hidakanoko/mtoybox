@@ -67,7 +67,10 @@ class _ArticleViewState extends ConsumerState<ArticleView> {
     );
   }
 
-  void _deleteArticle() {}
+  void _deleteArticle() {
+    ref.read(articleRepositoryProvider.notifier).delete(editing);
+    Navigator.pop(context);
+  }
 
   void _editArticle() {
     setState(() {

@@ -30,6 +30,16 @@ class ArticleRepository extends StateNotifier<List<Item>> {
     await _saveToFileAndCache(articles);
   }
 
+  Future<void> delete(Item article) async {
+    var deleteIndex = state.indexWhere((element) => element.id == article.id);
+    if (deleteIndex < 0) {
+      throw Exception('article not exists. cannot delete!');
+    }
+    var copy = [...state];
+    copy.removeAt(deleteIndex);
+    state = [...copy];
+  }
+
   Future<bool> dataExists() async {
     return await _fs.existsInDocumentPath(articleFile);
   }
