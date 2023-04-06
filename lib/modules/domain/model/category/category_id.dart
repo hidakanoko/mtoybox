@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mtoybox/modules/domain/model/Identity.dart';
-import 'package:mtoybox/modules/infrastructure/uuid.dart';
+import 'package:mtoybox/modules/domain/model/uuid.dart';
 
 @immutable
 class CategoryId extends Identity<UuidValue> {

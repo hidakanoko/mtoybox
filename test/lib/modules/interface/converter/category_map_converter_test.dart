@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mtoybox/modules/domain/model/category/category_id.dart';
 import 'package:mtoybox/modules/domain/model/category/catetory.dart';
-import 'package:mtoybox/modules/infrastructure/uuid.dart';
+import 'package:mtoybox/modules/domain/model/uuid.dart';
 import 'package:mtoybox/modules/interface/converter/category_map_converter.dart';
 
 void main() {
