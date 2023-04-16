@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mtoybox/components/button/menu_button.dart';
 import 'package:mtoybox/pages/article/article_list.dart';
-import 'package:mtoybox/pages/select_one.dart';
+import 'package:mtoybox/pages/game/select_one/select_one_top.dart';
 
 class Menu extends StatelessWidget {
   const Menu({super.key});
@@ -25,7 +25,7 @@ class Menu extends StatelessWidget {
             MenuButton(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const SelectOne()));
+                      builder: (context) => const SelectOneTop()));
                 },
                 text: 'えらんであそぼう'),
           ],
