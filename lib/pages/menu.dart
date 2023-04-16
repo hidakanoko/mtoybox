@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mtoybox/components/button/menu_button.dart';
 import 'package:mtoybox/pages/article/article_list.dart';
 import 'package:mtoybox/pages/select_one.dart';
 
@@ -15,18 +16,18 @@ class Menu extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            ElevatedButton(
+            MenuButton(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => const ArticleList()));
                 },
-                child: const Text('ずかん')),
-            ElevatedButton(
+                text: 'ずかん'),
+            MenuButton(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => const SelectOne()));
                 },
-                child: const Text('えらんであそぼう')),
+                text: 'えらんであそぼう'),
           ],
         ),
       ),
