@@ -25,12 +25,14 @@ class _SelectOneTopState extends State<SelectOneTop> {
   Widget createStartGameBody() {
     return Center(
         child: MenuButton(
-            onPressed: () {
-              setState(() {
-                playing = true;
-              });
-            },
-            text: 'はじめる'));
+      onPressed: () {
+        setState(() {
+          playing = true;
+        });
+      },
+      text: 'はじめる',
+      icon: Icons.play_circle_outlined,
+    ));
   }
 
   Widget createPlayGameBody() {

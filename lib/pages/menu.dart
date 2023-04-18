@@ -21,13 +21,17 @@ class Menu extends StatelessWidget {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => const ArticleList()));
                 },
-                text: 'ずかん'),
+                text: 'ずかん',
+                icon: Icons.photo_library_rounded,
+                color: Colors.green),
             MenuButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const SelectOneTop()));
-                },
-                text: 'えらんであそぼう'),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const SelectOneTop()));
+              },
+              text: 'えらんであそぼう',
+              color: Colors.green,
+            ),
           ],
         ),
       ),
