@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mtoybox/components/button/menu_button.dart';
 import 'package:mtoybox/components/modal/alert_modal_factory.dart';
+import 'package:mtoybox/pages/game/select_one/select_one_player.dart';
 
 class SelectOneTop extends StatefulWidget {
   const SelectOneTop({super.key});
@@ -36,7 +37,9 @@ class _SelectOneTopState extends State<SelectOneTop> {
   }
 
   Widget createPlayGameBody() {
-    return Row();
+    return SelectOnePlayer(
+      finished: () => playing = false,
+    );
   }
 
   Widget createBackButton() {
