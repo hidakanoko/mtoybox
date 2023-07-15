@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SelectOnePlayer extends StatefulWidget {
+class SelectOnePlayer extends ConsumerStatefulWidget {
   const SelectOnePlayer({super.key, required void Function() finished});
 
   @override
-  State<StatefulWidget> createState() {
+  ConsumerState<ConsumerStatefulWidget> createState() {
     return _SelectOnePlayerState();
   }
 }
 
-class _SelectOnePlayerState extends State<SelectOnePlayer> {
+class _SelectOnePlayerState extends ConsumerState<SelectOnePlayer> {
   @override
   Widget build(BuildContext context) {
     return Row();
