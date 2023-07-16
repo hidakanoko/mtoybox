@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mtoybox/modules/application/repository_initializer.dart';
-import 'package:mtoybox/modules/domain/model/article/item.dart';
+import 'package:mtoybox/modules/domain/model/article/article.dart';
 import 'package:mtoybox/modules/domain/model/category/categories.dart';
 import 'package:mtoybox/modules/infrastructure/file_system.dart';
 import 'package:mtoybox/modules/interface/article_repository.dart';
@@ -12,7 +12,7 @@ final categoryRepositoryProvider =
 });
 
 final articleRepositoryProvider =
-    StateNotifierProvider<ArticleRepository, List<Item>>((ref) {
+    StateNotifierProvider<ArticleRepository, List<Article>>((ref) {
   return ArticleRepository([], fs: FileSystem.instance());
 });
 

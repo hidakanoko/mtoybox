@@ -1,21 +1,21 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mtoybox/modules/domain/model/article/item.dart';
-import 'package:mtoybox/modules/domain/model/article/item_id.dart';
+import 'package:mtoybox/modules/domain/model/article/article.dart';
+import 'package:mtoybox/modules/domain/model/article/article_id.dart';
 import 'package:mtoybox/modules/domain/model/article/photo.dart';
 import 'package:mtoybox/modules/domain/model/category/category_id.dart';
-import 'package:mtoybox/modules/domain/model/uuid.dart';
-import 'package:mtoybox/modules/interface/converter/article_item_map_converter.dart';
+import 'package:mtoybox/modules/domain/model/identity_uuid.dart';
+import 'package:mtoybox/modules/interface/converter/article_map_converter.dart';
 
 void main() {
-  var converter = ArticleItemMapConverter();
+  var converter = ArticleMapConverter();
   test('ArticleItemMapConverter toMap()', (() {
     // given
-    var item = Item(
-        const ItemId(UuidValue('testitemid')),
+    var item = Article(
+        const ArticleId(IdentityUuid('testitemid')),
         const Photo('path/to/photo', isBuiltin: true),
         'りんご',
-        const CategoryId(UuidValue('testcategoryid')));
-
+        'りんごのせつめい',
+        const CategoryId(IdentityUuid('testcategoryid')));
     // when
     var map = converter.toMap(item);
 

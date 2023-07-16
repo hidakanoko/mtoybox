@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mtoybox/modules/domain/model/category/category_id.dart';
 import 'package:mtoybox/modules/domain/model/category/catetory.dart';
-import 'package:mtoybox/modules/domain/model/uuid.dart';
+import 'package:mtoybox/modules/domain/model/identity_uuid.dart';
 import 'package:mtoybox/modules/interface/converter/category_map_converter.dart';
 
 void main() {
@@ -10,7 +10,7 @@ void main() {
   test('CategoryMapConverter toMap()', (() {
     // given
     var category = const Category(
-        CategoryId(UuidValue('testcategoryid')), 'どうぶつ', Colors.red);
+        CategoryId(IdentityUuid('testcategoryid')), 'どうぶつ', Colors.red);
 
     // when
     var map = converter.toMap(category);

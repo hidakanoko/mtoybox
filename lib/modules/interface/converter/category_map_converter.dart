@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mtoybox/modules/domain/model/category/category_id.dart';
 import 'package:mtoybox/modules/domain/model/category/catetory.dart';
-import 'package:mtoybox/modules/domain/model/uuid.dart';
+import 'package:mtoybox/modules/domain/model/identity_uuid.dart';
 
 class CategoryMapConverter {
   Map<String, dynamic> toMap(Category category) {
@@ -14,6 +14,6 @@ class CategoryMapConverter {
 
   Category fromMap(Map<String, dynamic> map) {
     return Category(
-        CategoryId(UuidValue(map['id'])), map['name'], Color(map['color']));
+        CategoryId(IdentityUuid(map['id'])), map['name'], Color(map['color']));
   }
 }

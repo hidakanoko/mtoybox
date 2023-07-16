@@ -1,13 +1,13 @@
 import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mtoybox/modules/domain/model/article/item.dart';
+import 'package:mtoybox/modules/domain/model/article/article.dart';
 import 'package:mtoybox/modules/infrastructure/file_system.dart';
-import 'package:mtoybox/modules/interface/converter/article_item_map_converter.dart';
+import 'package:mtoybox/modules/interface/converter/article_map_converter.dart';
 
-class ArticleRepository extends StateNotifier<List<Item>> {
+class ArticleRepository extends StateNotifier<List<Article>> {
   final FileSystem _fs;
-  final ArticleItemMapConverter _converter = ArticleItemMapConverter();
+  final ArticleMapConverter _converter = ArticleMapConverter();
   final articleFile = 'article.json';
 
   ArticleRepository(super._state, {required FileSystem fs}) : _fs = fs;
@@ -16,7 +16,7 @@ class ArticleRepository extends StateNotifier<List<Item>> {
     await _cacheItems();
   }
 
-  Future<void> save(Item article) async {
+  Future<void> save(Article article) async {
     var cloned = List.of(state);
     var idx = cloned.indexWhere((element) => element.id == article.id);
     if (idx >= 0) {
@@ -26,11 +26,11 @@ class ArticleRepository extends StateNotifier<List<Item>> {
     await _saveToFileAndCache(cloned);
   }
 
-  Future<void> saveAll(List<Item> articles) async {
+  Future<void> saveAll(List<Article> articles) async {
     await _saveToFileAndCache(articles);
   }
 
-  Future<void> delete(Item article) async {
+  Future<void> delete(Article article) async {
     var deleteIndex = state.indexWhere((element) => element.id == article.id);
     if (deleteIndex < 0) {
       throw Exception('article not exists. cannot delete!');
@@ -44,7 +44,7 @@ class ArticleRepository extends StateNotifier<List<Item>> {
     return await _fs.existsInDocumentPath(articleFile);
   }
 
-  Future<void> _saveToFileAndCache(List<Item> articles) async {
+  Future<void> _saveToFileAndCache(List<Article> articles) async {
     var itemsMap = articles.map((e) => _converter.toMap(e)).toList();
     var jsonText = jsonEncode(itemsMap);
     await _fs.saveInDocumentPath(articleFile, jsonText);
@@ -57,7 +57,7 @@ class ArticleRepository extends StateNotifier<List<Item>> {
     }
     dynamic contents = json.decode(await _fs.readInDocumentPath(articleFile));
     if (contents is List && contents.any((e) => e! is Map<String, dynamic>)) {
-      state = contents.map<Item>((e) => _converter.fromMap(e)).toList();
+      state = contents.map<Article>((e) => _converter.fromMap(e)).toList();
     } else {
       throw Exception('failed to read items from file');
     }

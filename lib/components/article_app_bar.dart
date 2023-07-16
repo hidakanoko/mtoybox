@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mtoybox/modules/domain/model/article/item.dart';
+import 'package:mtoybox/modules/domain/model/article/article.dart';
 import 'package:mtoybox/modules/interface/provider_factory.dart';
 
 class ArticleAppBar extends ConsumerWidget {
-  final Item _item;
+  final Article _item;
   const ArticleAppBar(this._item, {super.key});
 
   @override

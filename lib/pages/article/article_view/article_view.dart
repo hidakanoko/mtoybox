@@ -6,13 +6,13 @@ import 'package:mtoybox/components/button/floating_close_button.dart';
 import 'package:mtoybox/components/button/floating_commit_button.dart';
 import 'package:mtoybox/components/category_item.dart';
 import 'package:mtoybox/components/category_selector.dart';
-import 'package:mtoybox/modules/domain/model/article/item.dart';
+import 'package:mtoybox/modules/domain/model/article/article.dart';
 import 'package:mtoybox/modules/domain/model/category/catetory.dart';
 import 'package:mtoybox/modules/interface/provider_factory.dart';
 import 'package:mtoybox/pages/article/article_view/popup_menu.dart';
 
 class ArticleView extends ConsumerStatefulWidget {
-  final Item _item;
+  final Article _item;
   const ArticleView(this._item, {super.key});
 
   @override
@@ -22,8 +22,8 @@ class ArticleView extends ConsumerStatefulWidget {
 }
 
 class _ArticleViewState extends ConsumerState<ArticleView> {
-  late Item saved;
-  late Item editing;
+  late Article saved;
+  late Article editing;
   bool isEditing = false;
 
   @override

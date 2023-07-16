@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mtoybox/components/article_image.dart';
 import 'package:mtoybox/components/button/camera_button.dart';
 import 'package:mtoybox/components/category_selector.dart';
-import 'package:mtoybox/modules/domain/model/article/item.dart';
-import 'package:mtoybox/modules/domain/model/article/item_id.dart';
+import 'package:mtoybox/modules/domain/model/article/article.dart';
+import 'package:mtoybox/modules/domain/model/article/article_id.dart';
 import 'package:mtoybox/modules/domain/model/article/photo.dart';
 import 'package:mtoybox/modules/domain/model/category/catetory.dart';
 import 'package:mtoybox/modules/interface/provider_factory.dart';
@@ -85,7 +85,8 @@ class _CreateArticleState extends ConsumerState<CreateArticle> {
       return;
     }
 
-    var newItem = Item(ItemId.generate(), photo, name, selectedCategory!.id);
+    var newItem =
+        Article(ArticleId.generate(), photo, name, '', selectedCategory!.id);
 
     ref.read(articleRepositoryProvider.notifier).save(newItem);
 

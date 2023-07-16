@@ -1,4 +1,4 @@
-import 'package:mtoybox/modules/domain/model/article/item.dart';
+import 'package:mtoybox/modules/domain/model/article/article.dart';
 
 abstract class ArticleGateway {
   /// アーティクルを読み込んでデータをキャッシュする
@@ -6,8 +6,8 @@ abstract class ArticleGateway {
   Future<void> initialize();
 
   /// リポジトリにアーティクルを保存してキャッシュを更新する
-  Future<void> save(Item article);
+  Future<void> save(Article article);
 
   // リポジトリ内にキャッシュされたアーティクルを返す
-  List<Item> getAll();
+  List<Article> getAll();
 }

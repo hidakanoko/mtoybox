@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mtoybox/modules/domain/model/article/item.dart';
-import 'package:mtoybox/modules/domain/model/article/item_id.dart';
+import 'package:mtoybox/modules/domain/model/article/article.dart';
+import 'package:mtoybox/modules/domain/model/article/article_id.dart';
 import 'package:mtoybox/modules/domain/model/article/photo.dart';
 import 'package:mtoybox/modules/domain/model/category/categories.dart';
 import 'package:mtoybox/modules/domain/model/category/category_id.dart';
@@ -38,27 +38,31 @@ class RepositoryInitializer {
     ]);
   }
 
-  List<Item> defaultArticles(Categories categories) {
+  List<Article> defaultArticles(Categories categories) {
     return [
-      Item(
-          ItemId.generate(),
+      Article(
+          ArticleId.generate(),
           const Photo('assets/images/fruits/apple1.png', isBuiltin: true),
           'りんご1',
+          '',
           categories.findByName('くだもの')?.id),
-      Item(
-          ItemId.generate(),
+      Article(
+          ArticleId.generate(),
           const Photo('assets/images/fruits/apple2.png', isBuiltin: true),
           'りんご2',
+          '',
           categories.findByName('くだもの')?.id),
-      Item(
-          ItemId.generate(),
+      Article(
+          ArticleId.generate(),
           const Photo('assets/images/fruits/mikan1.png', isBuiltin: true),
           'みかん',
+          '',
           categories.findByName('くだもの')?.id),
-      Item(
-          ItemId.generate(),
+      Article(
+          ArticleId.generate(),
           const Photo('assets/images/fruits/watermelon1.png', isBuiltin: true),
           'めろん',
+          '',
           categories.findByName('やさい')?.id),
     ];
   }

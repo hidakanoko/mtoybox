@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mtoybox/components/article_image.dart';
-import 'package:mtoybox/modules/domain/model/article/item.dart';
+import 'package:mtoybox/modules/domain/model/article/article.dart';
 import 'package:mtoybox/modules/interface/provider_factory.dart';
 
 class ArticleIcon extends ConsumerWidget {
-  final Item item;
+  final Article item;
   final void Function()? _onTap;
 
   const ArticleIcon(this.item, {Key? key, void Function()? onTap})
