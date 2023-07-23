@@ -23,4 +23,10 @@ void main() {
     // when, then
     expect(() => ArticleName(nameStr), throwsArgumentError);
   }));
+  test('ArticleName is empty', (() {
+    // given
+    var nameStr = '';
+    // when, then
+    expect(() => ArticleName(nameStr), throwsArgumentError);
+  }));
 }

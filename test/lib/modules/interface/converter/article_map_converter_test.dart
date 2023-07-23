@@ -12,7 +12,10 @@ void main() {
     // given
     var item = Article(
         const ArticleId(IdentityUuid('testitemid')),
-        const Photo('path/to/photo', isBuiltin: true),
+        const [
+          Photo('path/to/photo', isBuiltin: true),
+          Photo('path/to/photo2', isBuiltin: false)
+        ],
         'りんご',
         'りんごのせつめい',
         const CategoryId(IdentityUuid('testcategoryid')));
@@ -25,8 +28,42 @@ void main() {
         equals({
           'id': 'testitemid',
           'name': 'りんご',
-          'photo': {'path': 'path/to/photo', 'isBuiltin': true},
+          'description': 'りんごのせつめい',
+          'photos': [
+            {'path': 'path/to/photo', 'isBuiltin': true},
+            {'path': 'path/to/photo2', 'isBuiltin': false}
+          ],
           'categoryId': 'testcategoryid'
         }));
+  }));
+
+  test('ArticleItemMapConverter fromMap()', (() {
+    // given
+    var map = {
+      'id': 'testitemid',
+      'name': 'りんご',
+      'description': 'りんごのせつめい',
+      'photos': [
+        {'path': 'path/to/photo', 'isBuiltin': true},
+        {'path': 'path/to/photo2', 'isBuiltin': false}
+      ],
+      'categoryId': 'testcategoryid'
+    };
+
+    // when
+    var item = converter.fromMap(map);
+
+    // then
+    identical(
+        item,
+        Article(
+            const ArticleId(IdentityUuid('testitemid')),
+            const [
+              Photo('path/to/photo', isBuiltin: true),
+              Photo('path/to/photo2', isBuiltin: false)
+            ],
+            'りんご',
+            'りんごのせつめい',
+            const CategoryId(IdentityUuid('testcategoryid'))));
   }));
 }

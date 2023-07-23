@@ -24,4 +24,22 @@ void main() {
           'color': Colors.red.value
         }));
   }));
+
+  test('CategoryMapConverter fromMap()', (() {
+    // given
+    final map = {
+      'id': 'testcategoryid',
+      'name': 'どうぶつ',
+      'color': Colors.red.value
+    };
+
+    // when
+    var category = converter.fromMap(map);
+
+    // then
+    expect(
+        category,
+        equals(const Category(
+            CategoryId(IdentityUuid('testcategoryid')), 'どうぶつ', Colors.red)));
+  }));
 }

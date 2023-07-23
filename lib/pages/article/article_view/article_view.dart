@@ -99,7 +99,7 @@ class _ArticleViewState extends ConsumerState<ArticleView> {
     items.add(Center(
         child: Text(widget._item.name, style: const TextStyle(fontSize: 30))));
 
-    items.add(ArticleImage(widget._item.photo));
+    items.add(ArticleImage(widget._item.photos[0]));
 
     var category = _getCategory();
     if (category != null) {
@@ -124,7 +124,7 @@ class _ArticleViewState extends ConsumerState<ArticleView> {
       },
     )));
 
-    items.add(ArticleImage(widget._item.photo));
+    items.add(ArticleImage(widget._item.photos[0]));
 
     var category = _getCategory();
     items.add(CategorySelector(

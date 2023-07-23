@@ -29,7 +29,7 @@ class ArticleIcon extends ConsumerWidget {
         padding: const EdgeInsets.all(5),
         child: Column(
           children: [
-            ArticleImage(item.photo),
+            ArticleImage(item.photos[0]),
             Container(
               margin: const EdgeInsets.only(top: 0, bottom: 5),
               child: Text(

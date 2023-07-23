@@ -32,9 +32,10 @@ class RepositoryInitializer {
   Categories defaultCategories() {
     return Categories([
       Category(CategoryId.generate(), 'どうぶつ', Colors.red),
+      Category(CategoryId.generate(), 'さかな', Colors.blue),
+      Category(CategoryId.generate(), 'むし', Colors.purple),
       Category(CategoryId.generate(), 'くだもの', Colors.yellow),
       Category(CategoryId.generate(), 'やさい', Colors.green),
-      Category(CategoryId.generate(), 'さかな', Colors.blue),
     ]);
   }
 
@@ -42,25 +43,27 @@ class RepositoryInitializer {
     return [
       Article(
           ArticleId.generate(),
-          const Photo('assets/images/fruits/apple1.png', isBuiltin: true),
+          const [Photo('assets/images/fruits/apple1.png', isBuiltin: true)],
           'りんご1',
           '',
           categories.findByName('くだもの')?.id),
       Article(
           ArticleId.generate(),
-          const Photo('assets/images/fruits/apple2.png', isBuiltin: true),
+          const [Photo('assets/images/fruits/apple2.png', isBuiltin: true)],
           'りんご2',
           '',
           categories.findByName('くだもの')?.id),
       Article(
           ArticleId.generate(),
-          const Photo('assets/images/fruits/mikan1.png', isBuiltin: true),
+          const [Photo('assets/images/fruits/mikan1.png', isBuiltin: true)],
           'みかん',
           '',
           categories.findByName('くだもの')?.id),
       Article(
           ArticleId.generate(),
-          const Photo('assets/images/fruits/watermelon1.png', isBuiltin: true),
+          const [
+            Photo('assets/images/fruits/watermelon1.png', isBuiltin: true)
+          ],
           'めろん',
           '',
           categories.findByName('やさい')?.id),

@@ -4,11 +4,11 @@ import 'package:mtoybox/modules/domain/model/article/article_description.dart';
 main() {
   test('ArticleDescription length lower than 100', (() {
     // given
-    var val =
+    const val =
         '12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890';
 
     // when
-    var description = ArticleDescription(val);
+    final description = ArticleDescription(val);
 
     // then
     expect(description.value,
@@ -17,10 +17,20 @@ main() {
 
   test('ArticleDescription length over 200', (() {
     // given
-    var value =
+    const value =
         '123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901';
 
     // when, then
     expect(() => ArticleDescription(value), throwsArgumentError);
+  }));
+
+  test('ArticleDescription is empty', (() {
+    // given
+    const value = '';
+
+    // when
+    final description = ArticleDescription(value);
+
+    expect(description.value, '');
   }));
 }

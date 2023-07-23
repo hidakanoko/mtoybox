@@ -4,6 +4,6 @@ import 'package:flutter/material.dart';
 class ArticleName {
   final String value;
   ArticleName(this.value) {
-    if (value.length > 100) throw ArgumentError.value(value);
+    if (value.isEmpty || value.length > 100) throw ArgumentError.value(value);
   }
 }

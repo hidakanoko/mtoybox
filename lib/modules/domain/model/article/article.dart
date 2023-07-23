@@ -4,14 +4,15 @@ import 'package:mtoybox/modules/domain/model/category/category_id.dart';
 
 class Article {
   final ArticleId id;
-  Photo photo;
+  List<Photo> photos;
   String name;
   String description;
   CategoryId? categoryId;
 
-  Article(this.id, this.photo, this.name, this.description, this.categoryId);
+  Article(this.id, this.photos, this.name, this.description, this.categoryId);
 
   Article clone() {
-    return Article(id, photo.clone(), name, description, categoryId);
+    return Article(id, photos.map((e) => e.clone()).toList(), name, description,
+        categoryId);
   }
 }

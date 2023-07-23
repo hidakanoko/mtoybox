@@ -13,7 +13,7 @@ class PopupMenu extends StatelessWidget {
         return [
           PopupMenuItem(
             onTap: onEditTapped,
-            child: Row(children: const [
+            child: const Row(children: [
               Icon(
                 Icons.edit,
                 color: Colors.blueAccent,
@@ -23,7 +23,7 @@ class PopupMenu extends StatelessWidget {
           ),
           PopupMenuItem(
             onTap: onDeleteTapped,
-            child: Row(children: const [
+            child: const Row(children: [
               Icon(
                 Icons.delete_forever,
                 color: Colors.red,

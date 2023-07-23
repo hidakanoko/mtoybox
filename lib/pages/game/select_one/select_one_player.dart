@@ -13,6 +13,6 @@ class SelectOnePlayer extends ConsumerStatefulWidget {
 class _SelectOnePlayerState extends ConsumerState<SelectOnePlayer> {
   @override
   Widget build(BuildContext context) {
-    return Row();
+    return const Row();
   }
 }

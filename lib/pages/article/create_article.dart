@@ -86,7 +86,7 @@ class _CreateArticleState extends ConsumerState<CreateArticle> {
     }
 
     var newItem =
-        Article(ArticleId.generate(), photo, name, '', selectedCategory!.id);
+        Article(ArticleId.generate(), [photo], name, '', selectedCategory!.id);
 
     ref.read(articleRepositoryProvider.notifier).save(newItem);
 
