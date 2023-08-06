@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mtoybox/components/article_image.dart';
-import 'package:mtoybox/components/input/article_name_edit.dart';
+import 'package:mtoybox/components/input/article_name_input.dart';
 import 'package:mtoybox/components/button/floating_close_button.dart';
 import 'package:mtoybox/components/button/floating_commit_button.dart';
 import 'package:mtoybox/components/category_item.dart';
@@ -117,7 +117,7 @@ class _ArticleViewState extends ConsumerState<ArticleView> {
   Widget _createEditBody() {
     var items = <Widget>[];
     items.add(Center(
-        child: ArticleNameEdit(
+        child: ArticleNameInput(
       initialValue: widget._item.name,
       onChanged: (text) {
         editing.name = text;

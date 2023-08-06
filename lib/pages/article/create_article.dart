@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mtoybox/components/article_image.dart';
 import 'package:mtoybox/components/button/camera_button.dart';
 import 'package:mtoybox/components/category_selector.dart';
+import 'package:mtoybox/components/input/article_description_input.dart';
+import 'package:mtoybox/components/input/article_name_input.dart';
 import 'package:mtoybox/modules/domain/model/article/article.dart';
 import 'package:mtoybox/modules/domain/model/article/article_id.dart';
 import 'package:mtoybox/modules/domain/model/article/photo.dart';
@@ -18,19 +20,14 @@ class CreateArticle extends ConsumerStatefulWidget {
 
 class _CreateArticleState extends ConsumerState<CreateArticle> {
   String? providedName;
+  String? providedDescription;
   Photo? selectedPhoto;
   Category? selectedCategory;
 
   @override
   Widget build(BuildContext context) {
     final widgets = [
-      TextField(
-        maxLength: 30,
-        style: const TextStyle(
-          fontSize: 30,
-        ),
-        decoration: const InputDecoration(
-            icon: Icon(Icons.app_registration_sharp), labelText: 'なまえ'),
+      ArticleNameInput(
         onChanged: (String value) {
           setState(() {
             providedName = value;
@@ -42,6 +39,13 @@ class _CreateArticleState extends ConsumerState<CreateArticle> {
           selectedCategory = category;
         });
       }),
+      ArticleDescriptionInput(
+        onChanged: (String value) {
+          setState(() {
+            providedDescription = value;
+          });
+        },
+      ),
       Row(
         children: [
           CameraButton((Photo photo) {
@@ -51,7 +55,7 @@ class _CreateArticleState extends ConsumerState<CreateArticle> {
           }),
           // TODO: gallery
         ],
-      )
+      ),
     ];
     Photo? selectedPhoto = this.selectedPhoto;
     if (selectedPhoto != null) {
