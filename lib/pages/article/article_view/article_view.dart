@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mtoybox/components/article/article_description_input.dart';
 import 'package:mtoybox/components/article/article_image.dart';
 import 'package:mtoybox/components/article/article_name_input.dart';
 import 'package:mtoybox/components/common/button/floating_close_button.dart';
@@ -96,19 +97,22 @@ class _ArticleViewState extends ConsumerState<ArticleView> {
 
   Widget _createViewBody() {
     var items = <Widget>[];
-    items.add(Center(
-        child: Text(widget._item.name, style: const TextStyle(fontSize: 30))));
-
-    items.add(ArticleImage(widget._item.photos[0]));
+    items.add(Text(widget._item.name, style: const TextStyle(fontSize: 30)));
 
     var category = _getCategory();
     if (category != null) {
       items.add(Center(child: CategoryLabel(category)));
     }
 
+    items.add(
+        Text(widget._item.description, style: const TextStyle(fontSize: 25)));
+
+    items.add(ArticleImage(widget._item.photos[0]));
+
     return Container(
       margin: const EdgeInsets.all(20),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: items,
       ),
     );
@@ -116,15 +120,12 @@ class _ArticleViewState extends ConsumerState<ArticleView> {
 
   Widget _createEditBody() {
     var items = <Widget>[];
-    items.add(Center(
-        child: ArticleNameInput(
+    items.add(ArticleNameInput(
       initialValue: widget._item.name,
       onChanged: (text) {
         editing.name = text;
       },
-    )));
-
-    items.add(ArticleImage(widget._item.photos[0]));
+    ));
 
     var category = _getCategory();
     items.add(CategorySelector(
@@ -133,6 +134,15 @@ class _ArticleViewState extends ConsumerState<ArticleView> {
         editing.categoryId = category.id;
       },
     ));
+
+    items.add(ArticleDescriptionInput(
+      initialValue: widget._item.description,
+      onChanged: (text) {
+        editing.description = text;
+      },
+    ));
+
+    items.add(ArticleImage(widget._item.getPhoto()));
 
     return Container(
       margin: const EdgeInsets.all(20),

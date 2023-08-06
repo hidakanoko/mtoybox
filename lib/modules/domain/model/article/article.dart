@@ -11,6 +11,10 @@ class Article {
 
   Article(this.id, this.photos, this.name, this.description, this.categoryId);
 
+  Photo getPhoto() {
+    return photos[0];
+  }
+
   Article clone() {
     return Article(id, photos.map((e) => e.clone()).toList(), name, description,
         categoryId);

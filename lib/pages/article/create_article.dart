@@ -63,7 +63,7 @@ class _CreateArticleState extends ConsumerState<CreateArticle> {
     }
 
     widgets.add(ElevatedButton(
-        onPressed: isFilled() ? close : null, child: const Text('登録')));
+        onPressed: isFilled() ? register : null, child: const Text('登録')));
     return Scaffold(
       appBar: AppBar(
         title: const Text('ずかんのあたらしいこうもく'),
@@ -78,7 +78,7 @@ class _CreateArticleState extends ConsumerState<CreateArticle> {
         selectedCategory != null;
   }
 
-  void close() {
+  void register() {
     // この時点でnullになることはあり得ない, 型調整のための記述
     Photo? photo = selectedPhoto;
     if (photo == null) {
@@ -89,8 +89,10 @@ class _CreateArticleState extends ConsumerState<CreateArticle> {
       return;
     }
 
-    var newItem =
-        Article(ArticleId.generate(), [photo], name, '', selectedCategory!.id);
+    String description = providedDescription ?? "";
+
+    var newItem = Article(
+        ArticleId.generate(), [photo], name, description, selectedCategory!.id);
 
     ref.read(articleRepositoryProvider.notifier).save(newItem);
 
