@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mtoybox/components/article_image.dart';
-import 'package:mtoybox/components/input/article_name_input.dart';
-import 'package:mtoybox/components/button/floating_close_button.dart';
-import 'package:mtoybox/components/button/floating_commit_button.dart';
-import 'package:mtoybox/components/category_item.dart';
-import 'package:mtoybox/components/category_selector.dart';
+import 'package:mtoybox/components/article/article_image.dart';
+import 'package:mtoybox/components/article/article_name_input.dart';
+import 'package:mtoybox/components/common/button/floating_close_button.dart';
+import 'package:mtoybox/components/common/button/floating_commit_button.dart';
+import 'package:mtoybox/components/category/category_label.dart';
+import 'package:mtoybox/components/category/category_selector.dart';
 import 'package:mtoybox/modules/domain/model/article/article.dart';
 import 'package:mtoybox/modules/domain/model/category/catetory.dart';
 import 'package:mtoybox/modules/interface/provider_factory.dart';
@@ -103,7 +103,7 @@ class _ArticleViewState extends ConsumerState<ArticleView> {
 
     var category = _getCategory();
     if (category != null) {
-      items.add(Center(child: CategoryItem(category)));
+      items.add(Center(child: CategoryLabel(category)));
     }
 
     return Container(

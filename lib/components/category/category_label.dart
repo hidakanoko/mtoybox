@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mtoybox/modules/domain/model/category/catetory.dart';
 
-class CategoryItem extends StatelessWidget {
+class CategoryLabel extends StatelessWidget {
   final Category _category;
-  const CategoryItem(this._category, {super.key});
+  const CategoryLabel(this._category, {super.key});
 
   @override
   Widget build(BuildContext context) {

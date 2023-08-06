@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mtoybox/components/article_image.dart';
-import 'package:mtoybox/components/button/camera_button.dart';
-import 'package:mtoybox/components/category_selector.dart';
-import 'package:mtoybox/components/input/article_description_input.dart';
-import 'package:mtoybox/components/input/article_name_input.dart';
+import 'package:mtoybox/components/article/article_image.dart';
+import 'package:mtoybox/components/common/button/camera_button.dart';
+import 'package:mtoybox/components/category/category_selector.dart';
+import 'package:mtoybox/components/article/article_description_input.dart';
+import 'package:mtoybox/components/article/article_name_input.dart';
 import 'package:mtoybox/modules/domain/model/article/article.dart';
 import 'package:mtoybox/modules/domain/model/article/article_id.dart';
 import 'package:mtoybox/modules/domain/model/article/photo.dart';

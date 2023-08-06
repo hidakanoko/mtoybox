@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mtoybox/components/category_item.dart';
+import 'package:mtoybox/components/category/category_label.dart';
 import 'package:mtoybox/modules/domain/model/category/catetory.dart';
 import 'package:mtoybox/modules/interface/provider_factory.dart';
 
@@ -18,7 +18,7 @@ class CategorySelector extends ConsumerWidget {
             .asList()
             .map<DropdownMenuItem<Category>>((Category category) {
           return DropdownMenuItem<Category>(
-              value: category, child: CategoryItem(category));
+              value: category, child: CategoryLabel(category));
         }).toList(),
         onChanged: (Category? category) {
           var fn = onChanged;

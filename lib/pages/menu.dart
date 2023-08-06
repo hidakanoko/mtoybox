@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mtoybox/components/button/menu_button.dart';
+import 'package:mtoybox/components/common/button/menu_button.dart';
 import 'package:mtoybox/pages/article/article_list.dart';
 import 'package:mtoybox/pages/game/select_one/select_one_top.dart';
 

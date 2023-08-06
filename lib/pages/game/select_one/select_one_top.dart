@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mtoybox/components/button/menu_button.dart';
-import 'package:mtoybox/components/modal/alert_modal_factory.dart';
+import 'package:mtoybox/components/common/button/menu_button.dart';
+import 'package:mtoybox/components/common/modal/alert_modal_factory.dart';
 import 'package:mtoybox/pages/game/select_one/select_one_player.dart';
 
 class SelectOneTop extends StatefulWidget {

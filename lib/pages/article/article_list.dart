@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mtoybox/components/article_icon.dart';
-import 'package:mtoybox/components/button/floating_add_button.dart';
+import 'package:mtoybox/components/article/article_icon.dart';
+import 'package:mtoybox/components/common/button/floating_add_button.dart';
 import 'package:mtoybox/modules/domain/model/article/article.dart';
 import 'package:mtoybox/modules/interface/provider_factory.dart';
 import 'package:mtoybox/pages/article/article_view/article_view.dart';

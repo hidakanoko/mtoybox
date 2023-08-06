@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mtoybox/components/photo_image_provider_factory.dart';
+import 'package:mtoybox/components/common/photo_image_provider_factory.dart';
 import 'package:mtoybox/modules/domain/model/article/photo.dart';
 
 class ArticleImage extends StatelessWidget {
