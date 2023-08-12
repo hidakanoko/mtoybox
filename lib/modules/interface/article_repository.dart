@@ -55,7 +55,6 @@ class ArticleRepository extends StateNotifier<List<Article>> {
     if (!await dataExists()) {
       throw Exception('item file not exists!');
     }
-    var fileContents = await _fs.readInDocumentPath(articleFile);
     var contents = json.decode(await _fs.readInDocumentPath(articleFile));
     if (contents is List && contents.any((e) => e! is Map<String, dynamic>)) {
       state = contents.map<Article>((e) => _converter.fromMap(e)).toList();

@@ -17,20 +17,19 @@ class Menu extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             MenuButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const ArticleList()));
-                },
-                text: 'ずかん',
-                icon: Icons.photo_library_rounded,
-                color: Colors.green),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const ArticleList()));
+              },
+              text: 'ずかん',
+              icon: Icons.photo_library_rounded,
+            ),
             MenuButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const SelectOneTop()));
               },
               text: 'えらんであそぼう',
-              color: Colors.green,
             ),
           ],
         ),

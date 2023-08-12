@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mtoybox/components/article/article_description_input.dart';
 import 'package:mtoybox/components/article/article_image.dart';
-import 'package:mtoybox/components/article/article_name_input.dart';
-import 'package:mtoybox/components/common/button/floating_close_button.dart';
-import 'package:mtoybox/components/common/button/floating_commit_button.dart';
 import 'package:mtoybox/components/category/category_label.dart';
-import 'package:mtoybox/components/category/category_selector.dart';
 import 'package:mtoybox/modules/domain/model/article/article.dart';
+import 'package:mtoybox/modules/domain/model/category/category_id.dart';
 import 'package:mtoybox/modules/domain/model/category/catetory.dart';
 import 'package:mtoybox/modules/interface/provider_factory.dart';
+import 'package:mtoybox/pages/article/article_edit.dart';
 import 'package:mtoybox/pages/article/article_view/popup_menu.dart';
 
 class ArticleView extends ConsumerStatefulWidget {
@@ -24,52 +21,33 @@ class ArticleView extends ConsumerStatefulWidget {
 
 class _ArticleViewState extends ConsumerState<ArticleView> {
   late Article saved;
-  late Article editing;
   bool isEditing = false;
 
   @override
   void initState() {
     super.initState();
     saved = widget._item;
-    editing = widget._item;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget._item.name),
-        actions: [PopupMenu(_editArticle, _deleteArticle)],
-      ),
+      appBar: isEditing
+          ? AppBar(title: Text(saved.name), automaticallyImplyLeading: false)
+          : AppBar(
+              title: Text(saved.name),
+              actions: [PopupMenu(_editArticle, _deleteArticle)],
+            ),
       body: isEditing ? _createEditBody() : _createViewBody(),
-      floatingActionButton: isEditing ? buildSaveButton() : null,
     );
   }
 
-  Category? _getCategory() {
-    var categoryId = editing.categoryId;
-    return categoryId != null
-        ? ref.read(categoryRepositoryProvider).findById(categoryId)
-        : null;
-  }
-
-  Widget buildSaveButton() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(right: 5),
-          child: FloatingCloseButton(onPressed: _cancelEdit),
-        ),
-        FloatingCommitButton(
-          onPressed: _saveArticle,
-        )
-      ],
-    );
+  Category? _getCategory(CategoryId categoryId) {
+    return ref.read(categoryRepositoryProvider).findById(categoryId);
   }
 
   void _deleteArticle() {
-    ref.read(articleRepositoryProvider.notifier).delete(editing);
+    ref.read(articleRepositoryProvider.notifier).delete(saved);
     Navigator.pop(context);
   }
 
@@ -79,35 +57,21 @@ class _ArticleViewState extends ConsumerState<ArticleView> {
     });
   }
 
-  void _cancelEdit() {
-    setState(() {
-      // 保存されている状態に戻して編集を終了
-      editing = saved;
-      isEditing = false;
-    });
-  }
-
-  void _saveArticle() {
-    setState(() {
-      ref.read(articleRepositoryProvider.notifier).save(editing);
-      saved = editing;
-      isEditing = false;
-    });
-  }
-
   Widget _createViewBody() {
     var items = <Widget>[];
-    items.add(Text(widget._item.name, style: const TextStyle(fontSize: 30)));
+    items.add(Text(saved.name, style: const TextStyle(fontSize: 30)));
 
-    var category = _getCategory();
+    if (saved.categoryId != null) {}
+
+    var category =
+        saved.categoryId != null ? _getCategory(saved.categoryId!) : null;
     if (category != null) {
       items.add(Center(child: CategoryLabel(category)));
     }
 
-    items.add(
-        Text(widget._item.description, style: const TextStyle(fontSize: 25)));
+    items.add(Text(saved.description, style: const TextStyle(fontSize: 25)));
 
-    items.add(ArticleImage(widget._item.photos[0]));
+    items.add(ArticleImage(saved.photos[0]));
 
     return Container(
       margin: const EdgeInsets.all(20),
@@ -119,36 +83,18 @@ class _ArticleViewState extends ConsumerState<ArticleView> {
   }
 
   Widget _createEditBody() {
-    var items = <Widget>[];
-    items.add(ArticleNameInput(
-      initialValue: widget._item.name,
-      onChanged: (text) {
-        editing.name = text;
-      },
-    ));
-
-    var category = _getCategory();
-    items.add(CategorySelector(
-      category,
-      onChanged: (category) {
-        editing.categoryId = category.id;
-      },
-    ));
-
-    items.add(ArticleDescriptionInput(
-      initialValue: widget._item.description,
-      onChanged: (text) {
-        editing.description = text;
-      },
-    ));
-
-    items.add(ArticleImage(widget._item.getPhoto()));
-
-    return Container(
-      margin: const EdgeInsets.all(20),
-      child: Column(
-        children: items,
-      ),
-    );
+    return ArticleEdit(
+        article: saved,
+        onSaved: (Article updated) {
+          setState(() {
+            isEditing = false;
+            saved = updated;
+          });
+        },
+        onClosed: () {
+          setState(() {
+            isEditing = false;
+          });
+        });
   }
 }
