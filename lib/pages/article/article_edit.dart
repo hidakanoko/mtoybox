@@ -71,28 +71,34 @@ class _ArticleEdit extends ConsumerState<ArticleEdit> {
       },
     ));
 
-    items.add(ArticleImage(widget.article.getPhoto()));
+    items.add(Padding(
+        padding: const EdgeInsets.all(12),
+        child: ArticleImage(widget.article.getPhoto())));
 
-    items.add(Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        CancelButton(
-            onPressed: () {
-              widget.onClosed();
-            },
-            text: 'やめる'),
-        CommitButton(
-            onPressed: () {
-              _saveArticle();
-              widget.onSaved(_editing.clone());
-            },
-            text: 'ほぞん')
-      ],
-    ));
+    items.add(Padding(
+        padding: const EdgeInsets.fromLTRB(8, 24, 8, 0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CancelButton(
+                onPressed: () {
+                  widget.onClosed();
+                },
+                text: 'やめる'),
+            CommitButton(
+                onPressed: () {
+                  _saveArticle();
+                  widget.onSaved(_editing.clone());
+                },
+                text: 'ほぞん')
+          ],
+        )));
 
     return Container(
       margin: const EdgeInsets.all(20),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: items,
       ),
     );

@@ -38,7 +38,16 @@ class _ArticleViewState extends ConsumerState<ArticleView> {
               title: Text(saved.name),
               actions: [PopupMenu(_editArticle, _deleteArticle)],
             ),
-      body: isEditing ? _createEditBody() : _createViewBody(),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return SingleChildScrollView(
+              child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minHeight: constraints.maxHeight,
+                  ),
+                  child: isEditing ? _createEditBody() : _createViewBody()));
+        },
+      ),
     );
   }
 
@@ -71,10 +80,10 @@ class _ArticleViewState extends ConsumerState<ArticleView> {
 
     items.add(Text(saved.description, style: const TextStyle(fontSize: 25)));
 
-    items.add(ArticleImage(saved.photos[0]));
+    items.add(SizedBox.square(child: ArticleImage(saved.photos[0])));
 
-    return Container(
-      margin: const EdgeInsets.all(20),
+    return Padding(
+      padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: items,
