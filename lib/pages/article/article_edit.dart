@@ -60,7 +60,9 @@ class _ArticleEdit extends ConsumerState<ArticleEdit> {
     items.add(CategorySelector(
       category,
       onChanged: (category) {
-        _editing.categoryId = category.id;
+        setState(() {
+          _editing.categoryId = category.id;
+        });
       },
     ));
 

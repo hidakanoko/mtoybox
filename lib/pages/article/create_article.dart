@@ -5,6 +5,7 @@ import 'package:mtoybox/components/common/button/camera_button.dart';
 import 'package:mtoybox/components/category/category_selector.dart';
 import 'package:mtoybox/components/article/article_description_input.dart';
 import 'package:mtoybox/components/article/article_name_input.dart';
+import 'package:mtoybox/components/common/button/gallery_button.dart';
 import 'package:mtoybox/modules/domain/model/article/article.dart';
 import 'package:mtoybox/modules/domain/model/article/article_id.dart';
 import 'package:mtoybox/modules/domain/model/article/photo.dart';
@@ -53,7 +54,11 @@ class _CreateArticleState extends ConsumerState<CreateArticle> {
               this.selectedPhoto = photo;
             });
           }),
-          // TODO: gallery
+          GalleryButton((photo) {
+            setState(() {
+              this.selectedPhoto = photo;
+            });
+          })
         ],
       ),
     ];

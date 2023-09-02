@@ -24,8 +24,7 @@ class ArticleList extends ConsumerWidget {
     );
   }
 
-  List<ArticleIcon> _getArticleIcons(
-      BuildContext context, List<Article> articles) {
+  List<Widget> _getArticleIcons(BuildContext context, List<Article> articles) {
     return articles
         .map((item) =>
             ArticleIcon(item, onTap: () => _onArticleIconTap(context, item)))

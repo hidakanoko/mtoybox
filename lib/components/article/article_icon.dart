@@ -15,34 +15,31 @@ class ArticleIcon extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var categoryId = item.categoryId;
-    return _wrapByGestureDetectorIfNecessary(Container(
-        decoration: BoxDecoration(
-          color: categoryId != null
-              ? ref
-                  .watch(categoryRepositoryProvider)
-                  .findById(categoryId)
-                  ?.color
-              : null,
-          borderRadius: BorderRadius.circular(20.0),
+    return _wrapByGestureDetectorIfNecessary(Column(
+      children: [
+        Expanded(
+            child: Container(
+                decoration: BoxDecoration(
+                  color: categoryId != null
+                      ? ref
+                          .watch(categoryRepositoryProvider)
+                          .findById(categoryId)
+                          ?.color
+                      : null,
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                margin: const EdgeInsets.fromLTRB(10, 14, 10, 1),
+                padding: const EdgeInsets.all(5),
+                child: ArticleImage(item.photos[0]))),
+        Text(
+          item.name,
+          overflow: TextOverflow.ellipsis,
         ),
-        margin: const EdgeInsets.all(10),
-        padding: const EdgeInsets.all(5),
-        child: Column(
-          children: [
-            ArticleImage(item.photos[0]),
-            Container(
-              margin: const EdgeInsets.only(top: 0, bottom: 5),
-              child: Text(
-                item.name,
-                style:
-                    const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-              ),
-            )
-          ],
-        )));
+      ],
+    ));
   }
 
-  Widget _wrapByGestureDetectorIfNecessary(Container container) {
+  Widget _wrapByGestureDetectorIfNecessary(Widget container) {
     if (_onTap == null) {
       return container;
     } else {
