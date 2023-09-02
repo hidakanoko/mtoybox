@@ -66,16 +66,16 @@ class _ArticleEdit extends ConsumerState<ArticleEdit> {
       },
     ));
 
+    items.add(Padding(
+        padding: const EdgeInsets.all(12),
+        child: ArticleImage(widget.article.getPhoto())));
+
     items.add(ArticleDescriptionInput(
       initialValue: widget.article.description,
       onChanged: (text) {
         _editing.description = text;
       },
     ));
-
-    items.add(Padding(
-        padding: const EdgeInsets.all(12),
-        child: ArticleImage(widget.article.getPhoto())));
 
     items.add(Padding(
         padding: const EdgeInsets.fromLTRB(8, 24, 8, 0),

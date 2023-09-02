@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 @immutable
 class CommitButton extends StatelessWidget {
-  final void Function() onPressed;
+  final void Function()? onPressed;
   final String text;
   final Color? color;
   final Color? fontColor;

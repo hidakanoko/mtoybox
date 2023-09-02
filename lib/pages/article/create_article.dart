@@ -5,6 +5,7 @@ import 'package:mtoybox/components/common/button/camera_button.dart';
 import 'package:mtoybox/components/category/category_selector.dart';
 import 'package:mtoybox/components/article/article_description_input.dart';
 import 'package:mtoybox/components/article/article_name_input.dart';
+import 'package:mtoybox/components/common/button/commit_button.dart';
 import 'package:mtoybox/components/common/button/gallery_button.dart';
 import 'package:mtoybox/modules/domain/model/article/article.dart';
 import 'package:mtoybox/modules/domain/model/article/article_id.dart';
@@ -27,6 +28,30 @@ class _CreateArticleState extends ConsumerState<CreateArticle> {
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('ずかんのあたらしいこうもく'),
+        ),
+        body: LayoutBuilder(
+          builder: (context, constraints) {
+            return SingleChildScrollView(
+                child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: constraints.maxHeight,
+                    ),
+                    child: Container(
+                      margin: const EdgeInsets.all(20),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: createWidgets(),
+                      ),
+                    )));
+          },
+        ));
+  }
+
+  List<Widget> createWidgets() {
     final widgets = [
       ArticleNameInput(
         onChanged: (String value) {
@@ -40,13 +65,6 @@ class _CreateArticleState extends ConsumerState<CreateArticle> {
           selectedCategory = category;
         });
       }),
-      ArticleDescriptionInput(
-        onChanged: (String value) {
-          setState(() {
-            providedDescription = value;
-          });
-        },
-      ),
       Row(
         children: [
           CameraButton((Photo photo) {
@@ -61,20 +79,26 @@ class _CreateArticleState extends ConsumerState<CreateArticle> {
           })
         ],
       ),
+      ArticleDescriptionInput(
+        onChanged: (String value) {
+          setState(() {
+            providedDescription = value;
+          });
+        },
+      ),
     ];
     Photo? selectedPhoto = this.selectedPhoto;
     if (selectedPhoto != null) {
       widgets.add(ArticleImage(selectedPhoto));
     }
 
-    widgets.add(ElevatedButton(
-        onPressed: isFilled() ? register : null, child: const Text('登録')));
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('ずかんのあたらしいこうもく'),
-      ),
-      body: Column(children: widgets),
-    );
+    widgets.add(Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+      CommitButton(
+        onPressed: isFilled() ? register : null,
+        text: '登録',
+      )
+    ]));
+    return widgets;
   }
 
   bool isFilled() {

@@ -68,7 +68,7 @@ class _ArticleViewState extends ConsumerState<ArticleView> {
 
   Widget _createViewBody() {
     var items = <Widget>[];
-    items.add(Text(saved.name, style: const TextStyle(fontSize: 30)));
+    items.add(Text(saved.name, style: const TextStyle(fontSize: 50)));
 
     if (saved.categoryId != null) {}
 
@@ -78,9 +78,11 @@ class _ArticleViewState extends ConsumerState<ArticleView> {
       items.add(Center(child: CategoryLabel(category)));
     }
 
-    items.add(Text(saved.description, style: const TextStyle(fontSize: 25)));
-
     items.add(SizedBox.square(child: ArticleImage(saved.photos[0])));
+
+    items.add(Padding(
+        padding: const EdgeInsets.fromLTRB(5, 25, 5, 50),
+        child: Text(saved.description, style: const TextStyle(fontSize: 25))));
 
     return Padding(
       padding: const EdgeInsets.all(20),
