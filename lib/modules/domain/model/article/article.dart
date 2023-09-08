@@ -15,6 +15,10 @@ class Article {
     return photos[0];
   }
 
+  setPhoto(Photo photo) {
+    photos[0] = photo;
+  }
+
   Article clone() {
     return Article(id, photos.map((e) => e.clone()).toList(), name, description,
         categoryId);

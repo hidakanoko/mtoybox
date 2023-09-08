@@ -4,9 +4,12 @@ import 'package:mtoybox/components/article/article_description_input.dart';
 import 'package:mtoybox/components/article/article_image.dart';
 import 'package:mtoybox/components/article/article_name_input.dart';
 import 'package:mtoybox/components/category/category_selector.dart';
+import 'package:mtoybox/components/common/button/camera_button.dart';
 import 'package:mtoybox/components/common/button/cancel_button.dart';
 import 'package:mtoybox/components/common/button/commit_button.dart';
+import 'package:mtoybox/components/common/button/gallery_button.dart';
 import 'package:mtoybox/modules/domain/model/article/article.dart';
+import 'package:mtoybox/modules/domain/model/article/photo.dart';
 import 'package:mtoybox/modules/domain/model/category/category_id.dart';
 import 'package:mtoybox/modules/domain/model/category/catetory.dart';
 import 'package:mtoybox/modules/interface/provider_factory.dart';
@@ -68,7 +71,22 @@ class _ArticleEdit extends ConsumerState<ArticleEdit> {
 
     items.add(Padding(
         padding: const EdgeInsets.all(12),
-        child: ArticleImage(widget.article.getPhoto())));
+        child: ArticleImage(_editing.getPhoto())));
+
+    items.add(Row(
+      children: [
+        CameraButton((Photo photo) {
+          setState(() {
+            _editing.setPhoto(photo);
+          });
+        }),
+        GalleryButton((photo) {
+          setState(() {
+            _editing.setPhoto(photo);
+          });
+        })
+      ],
+    ));
 
     items.add(ArticleDescriptionInput(
       initialValue: widget.article.description,
