@@ -22,3 +22,14 @@ final repositoryInitializerFutureProvider = FutureProvider((ref) async {
       articleRepository: ref.read(articleRepositoryProvider.notifier));
   return repositoryInitializer.initializeIfNotExists();
 });
+
+enum SortOrder {
+  asc,
+  desc;
+
+  bool get isAsc => this == SortOrder.asc;
+}
+
+final articleListSortOrderProvider = StateProvider<SortOrder>((ref) {
+  return SortOrder.asc;
+});

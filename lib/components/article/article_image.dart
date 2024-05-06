@@ -9,19 +9,23 @@ class ArticleImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var fit = ImageSizeRecognizer.isVertical(_photo)
-        ? BoxFit.fitWidth
-        : BoxFit.fitHeight;
-    return AspectRatio(
-        aspectRatio: 1.0,
-        child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-                image: PhotoImageProviderFactory.create(_photo), fit: fit),
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          margin: const EdgeInsets.all(5),
-        ));
+    return FutureBuilder<bool>(
+      future: ImageSizeRecognizer.isVertical(_photo),
+      builder: (context, snapshot) {
+        var isVertical = snapshot.data ?? true;
+        var fit = isVertical ? BoxFit.fitWidth : BoxFit.fitHeight;
+        return AspectRatio(
+            aspectRatio: 1.0,
+            child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: PhotoImageProviderFactory.create(_photo), fit: fit),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              margin: const EdgeInsets.all(5),
+            ));
+      },
+    );
   }
 }
