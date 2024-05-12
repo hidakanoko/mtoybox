@@ -40,7 +40,7 @@ class CategoryRepository extends StateNotifier<Categories> {
   Future<void> _saveToFileAndUpdateState(List<Category> categories) async {
     var jsonStr =
         jsonEncode(categories.map((e) => converter.toMap(e)).toList());
-    fs.saveInDocumentPath(categoryFile, jsonStr);
+    await fs.saveInDocumentPath(categoryFile, jsonStr);
     await _cacheCategories();
   }
 
