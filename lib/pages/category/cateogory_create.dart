@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mtoybox/components/article/article_name_input.dart';
+import 'package:mtoybox/components/category/category_color_picker.dart';
+import 'package:mtoybox/components/category/category_name_input.dart';
 import 'package:mtoybox/components/common/button/commit_button.dart';
 
 class CategoryCreate extends ConsumerStatefulWidget {
@@ -13,6 +12,8 @@ class CategoryCreate extends ConsumerStatefulWidget {
 }
 
 class _CategoryCreateState extends ConsumerState<CategoryCreate> {
+  String? providedName;
+  Color? providedColor;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,40 +41,22 @@ class _CategoryCreateState extends ConsumerState<CategoryCreate> {
 
   List<Widget> createWidgets() {
     final List<Widget> widgets = [
-      TextFormField()
-      // ArticleNameInput(
-      //   onChanged: (String value) {
-      //     setState(() {
-      //       providedName = value;
-      //     });
-      //   },
-      // ),
-      // CategorySelector(selectedCategory, onChanged: (Category category) {
-      //   setState(() {
-      //     selectedCategory = category;
-      //   });
-      // }),
-      // Row(
-      //   children: [
-      //     CameraButton((Photo photo) {
-      //       setState(() {
-      //         this.selectedPhoto = photo;
-      //       });
-      //     }),
-      //     GalleryButton((photo) {
-      //       setState(() {
-      //         this.selectedPhoto = photo;
-      //       });
-      //     })
-      //   ],
-      // ),
-      // ArticleDescriptionInput(
-      //   onChanged: (String value) {
-      //     setState(() {
-      //       providedDescription = value;
-      //     });
-      //   },
-      // ),
+      CategoryNameInput(
+        onChanged: (String value) {
+          setState(() {
+            providedName = value;
+          });
+        },
+      ),
+      Center(
+          child: CategoryColorPicker(
+        onChanged: (color) {
+          setState(() {
+            providedColor = color;
+          });
+        },
+        initialValue: providedColor ?? Colors.black,
+      )),
     ];
 
     widgets.add(Row(mainAxisAlignment: MainAxisAlignment.center, children: [

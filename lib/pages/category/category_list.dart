@@ -5,6 +5,7 @@ import 'package:mtoybox/components/common/button/floating_add_button.dart';
 import 'package:mtoybox/components/common/button/sort_button.dart';
 import 'package:mtoybox/modules/domain/model/category/categories.dart';
 import 'package:mtoybox/modules/interface/provider_factory.dart';
+import 'package:mtoybox/pages/category/cateogory_create.dart';
 
 class CategoryList extends ConsumerStatefulWidget {
   const CategoryList({super.key});
@@ -38,5 +39,8 @@ class _CategoryListState extends ConsumerState {
         children: categories.asList().map((e) => CategoryLabel(e)).toList());
   }
 
-  addArticle(BuildContext context) async {}
+  addArticle(BuildContext context) async {
+    Navigator.of(context).push(
+        MaterialPageRoute(builder: ((context) => const CategoryCreate())));
+  }
 }
