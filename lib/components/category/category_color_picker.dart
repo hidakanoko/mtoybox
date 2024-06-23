@@ -30,7 +30,7 @@ class CategoryColorPicker extends StatelessWidget {
   final int _landscapeCrossAxisCount = 5;
 
   const CategoryColorPicker(
-      {super.key, required this.onChanged, this.initialValue = Colors.white});
+      {super.key, required this.onChanged, this.initialValue = Colors.black});
 
   @override
   Widget build(BuildContext context) {

@@ -18,4 +18,8 @@ class Category {
         other.runtimeType == runtimeType &&
         other.hashCode == hashCode;
   }
+
+  Category clone() {
+    return Category(id, name, color);
+  }
 }

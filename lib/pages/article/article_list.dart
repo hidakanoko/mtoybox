@@ -41,15 +41,9 @@ class _ArticleListState extends ConsumerState {
   List<Widget> _getArticleIcons(
       BuildContext context, List<Article> articles, SortOrder sortOrder) {
     articles.sort((a, b) {
-      if (a.categoryId == b.categoryId) {
-        return sortOrder.isAsc
-            ? a.name.compareTo(b.name)
-            : b.name.compareTo(a.name);
-      } else {
-        return sortOrder.isAsc
-            ? a.categoryId.toString().compareTo(b.categoryId.toString())
-            : b.categoryId.toString().compareTo(a.categoryId.toString());
-      }
+      return sortOrder.isAsc
+          ? a.name.compareTo(b.name)
+          : b.name.compareTo(a.name);
     });
     return articles
         .map((item) =>

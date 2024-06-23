@@ -3,25 +3,33 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mtoybox/components/category/category_color_picker.dart';
 import 'package:mtoybox/components/category/category_name_input.dart';
 import 'package:mtoybox/components/common/button/commit_button.dart';
-import 'package:mtoybox/modules/domain/model/category/category_id.dart';
 import 'package:mtoybox/modules/domain/model/category/catetory.dart';
 import 'package:mtoybox/modules/interface/provider_factory.dart';
 
-class CategoryCreate extends ConsumerStatefulWidget {
-  const CategoryCreate({super.key});
+class CategoryEdit extends ConsumerStatefulWidget {
+  final Category category;
+  const CategoryEdit({super.key, required this.category});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _CategoryCreateState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _CategoryEditState();
 }
 
-class _CategoryCreateState extends ConsumerState<CategoryCreate> {
+class _CategoryEditState extends ConsumerState<CategoryEdit> {
   String? providedName;
   Color? providedColor;
+
+  @override
+  void initState() {
+    super.initState();
+    providedName = widget.category.name;
+    providedColor = widget.category.color;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('あたらしい なかま・できごと'),
+          title: const Text('なかま・できごと のへんしゅう'),
         ),
         body: LayoutBuilder(
           builder: (context, constraints) {
@@ -45,6 +53,7 @@ class _CategoryCreateState extends ConsumerState<CategoryCreate> {
   List<Widget> createWidgets() {
     final List<Widget> widgets = [
       CategoryNameInput(
+        initialValue: widget.category.name,
         onChanged: (String value) {
           setState(() {
             providedName = value;
@@ -89,7 +98,7 @@ class _CategoryCreateState extends ConsumerState<CategoryCreate> {
       return;
     }
 
-    var category = Category(CategoryId.generate(), name, color);
+    var category = Category(widget.category.id, name, color);
 
     ref.read(categoryRepositoryProvider.notifier).save(category);
 
