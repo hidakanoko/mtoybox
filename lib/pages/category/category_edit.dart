@@ -74,7 +74,7 @@ class _CategoryEditState extends ConsumerState<CategoryEdit> {
     widgets.add(Row(mainAxisAlignment: MainAxisAlignment.center, children: [
       CommitButton(
         onPressed: isFilled() ? register : null,
-        text: '登録',
+        text: '保存',
       )
     ]));
     return widgets;
