@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mtoybox/components/article/article_icon.dart';
+import 'package:mtoybox/components/common/button/category_filter_button.dart';
 import 'package:mtoybox/components/common/button/floating_add_button.dart';
 import 'package:mtoybox/components/common/button/sort_button.dart';
 import 'package:mtoybox/modules/domain/model/article/article.dart';
@@ -28,6 +29,7 @@ class _ArticleListState extends ConsumerState {
         title: const Text('ずかん'),
         actions: const [
           SortButton(),
+          CategoryFilterButton(),
         ],
       ),
       body: GridView.count(
