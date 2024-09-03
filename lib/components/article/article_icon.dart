@@ -8,9 +8,8 @@ class ArticleIcon extends ConsumerWidget {
   final Article item;
   final void Function()? _onTap;
 
-  const ArticleIcon(this.item, {Key? key, void Function()? onTap})
-      : _onTap = onTap,
-        super(key: key);
+  const ArticleIcon(this.item, {super.key, void Function()? onTap})
+      : _onTap = onTap;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

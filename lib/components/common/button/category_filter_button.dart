@@ -86,7 +86,7 @@ class CategoryFilterButton extends ConsumerWidget {
                       c,
                       usageCount: usageCount,
                     ));
-              }).toList()
+              })
             ],
           );
         });
