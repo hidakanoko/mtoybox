@@ -10,7 +10,7 @@ class Menu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('まどかのおもちゃ箱'),
+        title: const Text('まどかのおもちゃばこ'),
       ),
       body: Center(
         child: Column(
@@ -25,12 +25,12 @@ class Menu extends StatelessWidget {
               icon: Icons.photo_library_rounded,
             ),
             MenuButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const CategoryList()));
-              },
-              text: 'できごと・なかま',
-            ),
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const CategoryList()));
+                },
+                text: 'できごと・なかま',
+                icon: Icons.category_rounded),
           ],
         ),
       ),
