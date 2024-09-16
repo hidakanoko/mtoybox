@@ -17,14 +17,14 @@ class CategoryFilterButton extends ConsumerWidget {
             onPressed: () => {openSelectCategory(context, ref)},
             icon: const Icon(
               Icons.filter_alt,
-              size: 40,
+              size: 45,
             ),
             color: category.color)
         : IconButton(
             onPressed: () => {openSelectCategory(context, ref)},
             icon: const Icon(
               Icons.filter_alt_off,
-              size: 40,
+              size: 45,
             ),
             color: Colors.grey,
           );

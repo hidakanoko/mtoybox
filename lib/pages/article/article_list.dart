@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mtoybox/components/article/article_icon.dart';
+import 'package:mtoybox/components/common/app_bar_title.dart';
+import 'package:mtoybox/components/common/button/app_bar_back.dart';
 import 'package:mtoybox/components/common/button/category_filter_button.dart';
 import 'package:mtoybox/components/common/button/floating_add_button.dart';
 import 'package:mtoybox/components/common/button/sort_button.dart';
@@ -28,13 +30,16 @@ class _ArticleListState extends ConsumerState {
     final categoryFilter = ref.watch(categoryFilterProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('ずかん'),
-        actions: const [
-          SortButton(),
-          CategoryFilterButton(),
-        ],
-      ),
+      appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(80),
+          child: AppBar(
+            title: const AppBarTitle('もどる'),
+            actions: const [
+              SortButton(),
+              CategoryFilterButton(),
+            ],
+            leading: const AppBarBack(),
+          )),
       body: GridView.count(
           crossAxisCount: 3,
           children:

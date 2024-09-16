@@ -20,7 +20,7 @@ class SortButton extends ConsumerWidget {
           },
           icon: const Icon(
             Icons.sort,
-            size: 40,
+            size: 45,
           )),
     );
   }

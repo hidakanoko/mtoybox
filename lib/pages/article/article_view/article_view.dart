@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mtoybox/components/article/article_image.dart';
 import 'package:mtoybox/components/category/category_label.dart';
+import 'package:mtoybox/components/common/app_bar_title.dart';
+import 'package:mtoybox/components/common/button/app_bar_back.dart';
 import 'package:mtoybox/modules/domain/model/article/article.dart';
 import 'package:mtoybox/modules/domain/model/category/category_id.dart';
 import 'package:mtoybox/modules/domain/model/category/catetory.dart';
@@ -33,9 +35,12 @@ class _ArticleViewState extends ConsumerState<ArticleView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: isEditing
-          ? AppBar(title: Text(saved.name), automaticallyImplyLeading: false)
+          ? AppBar(
+              title: const AppBarTitle('へんしゅう'),
+              automaticallyImplyLeading: false)
           : AppBar(
-              title: Text(saved.name),
+              title: const AppBarTitle('もどる'),
+              leading: const AppBarBack(),
               actions: [PopupMenu(_editArticle, _deleteArticle)],
             ),
       body: LayoutBuilder(

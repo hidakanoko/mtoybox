@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mtoybox/components/category/category_label.dart';
+import 'package:mtoybox/components/common/app_bar_title.dart';
+import 'package:mtoybox/components/common/button/app_bar_back.dart';
 import 'package:mtoybox/components/common/button/delete_icon_button.dart';
 import 'package:mtoybox/components/common/button/edit_icon_button.dart';
 import 'package:mtoybox/components/common/button/floating_add_button.dart';
@@ -26,9 +28,12 @@ class _CategoryListState extends ConsumerState {
     final categories = ref.watch(categoryRepositoryProvider);
     final articles = ref.watch(articleRepositoryProvider);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('できごと・なかま'),
-      ),
+      appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(80),
+          child: AppBar(
+            title: const AppBarTitle('できごと・なかま'),
+            leading: const AppBarBack(),
+          )),
       body: createListView(categories, articles),
       floatingActionButton: FloatingAddButton(onPressed: () => add(context)),
     );
