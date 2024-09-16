@@ -12,3 +12,8 @@ flutter devices
 flutter build apk
 flutter install -d DEVICE_ID
 ```
+
+## リリース手順
+
+ - pubspec.yamlのバージョンを上げる
+ -
